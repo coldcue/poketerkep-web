@@ -1,0 +1,33 @@
+/**
+ * We are using only bootstrap css for this project, so we import it here
+ */
+@import "../../../bower_components/bootstrap/less/bootstrap.less";
+
+/**
+ * Font
+ */
+* {
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+/**
+ * Import less files from modules (must add manually)
+ */
+@import "../common/less/variables.less";
+@import "../common/less/fa.less";
+@import "../common/directives/loader/loader.less";
+@import "../header/header.less";
+@import "../footer/footer.less";
+@import "../homepage/homepage.less";
+
+/**
+ * Common
+ */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+body {
+    background-color: @bgColor;
+    color: @defaultFontColor;
+}

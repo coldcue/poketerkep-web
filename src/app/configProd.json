@@ -1,0 +1,7 @@
+{
+  "ENV": {
+    "name": "production",
+    "production": true,
+    "apiEndpoint": ""
+  }
+}

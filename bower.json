@@ -1,0 +1,18 @@
+{
+  "name": "poketerkep",
+  "version": "1.0.0",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-ui-router": "^0.3.1",
+    "angular-resource": "^1.5.8",
+    "angular-cache-buster": "^0.4.3",
+    "angular-strap": "^2.3.9"
+  },
+  "devDependencies": {
+    "bootstrap": "^3.3.6",
+    "angular-mocks": "^1.5.8"
+  },
+  "resolutions": {
+    "angular": "^1.5.8"
+  }
+}
