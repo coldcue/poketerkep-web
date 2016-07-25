@@ -8,7 +8,7 @@ angular
  * This function runs when the app starts
  */
 /*@ngInject*/
-function MainInit($rootScope, $state, ENV, MockService) {
+function MainInit($rootScope, $state, ENV, MockService, amMoment) {
 
     // Event listener - before state change
     $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
@@ -36,5 +36,8 @@ function MainInit($rootScope, $state, ENV, MockService) {
 
     // Mock backend endpoints
     MockService.init();
+
+    // Angular moment locale set
+    amMoment.changeLocale('hu');
 
 }

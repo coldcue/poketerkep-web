@@ -1,13 +1,31 @@
 <div class="container-fluid homepage">
     <ui-gmap-google-map class="full-map"
                         center="vm.map.center"
-                        zoom="vm.map.zoom">
+                        zoom="vm.map.zoom"
+                        pan="true">
         <ui-gmap-markers models="vm.playerPosition"
                          coords="'coords'"
                          idkey="'id'"></ui-gmap-markers>
         <ui-gmap-markers models="vm.pokemons"
                          coords="'coords'"
                          idkey="'id'"
-                         icon="'icon'"></ui-gmap-markers>
+                         icon="'icon'"
+                         events="vm.map.markerEvent">
+        </ui-gmap-markers>
+        <ui-gmap-window show="vm.map.window.show"
+                        coords="vm.map.window.model.coords"
+                        closeClick="vm.map.window.closeClick()">
+            <div>
+                <div>
+                    <strong>{{vm.map.window.model.data.pokemon_name}}</strong>
+                    <a href="http://www.pokemon.com/us/pokedex/{{vm.map.window.model.data.pokemon_id}}"
+                       target="_blank">#{{vm.map.window.model.data.pokemon_id}}</a>
+                </div>
+                <div>
+                    Eltűnik ekkor: {{vm.map.window.model.data.disappear_time | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}
+                    (<span countdown="vm.map.window.model.data.disappear_time"></span>)
+                </div>
+            </div>
+        </ui-gmap-window>
     </ui-gmap-google-map>
 </div>

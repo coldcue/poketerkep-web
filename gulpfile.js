@@ -485,7 +485,7 @@ gulp.task('enforce-coverage', function () {
     var options = {
         thresholds : {
             statements : 50,
-            branches : 20,
+            branches : 0,
             lines : 50,
             functions : 50
         },

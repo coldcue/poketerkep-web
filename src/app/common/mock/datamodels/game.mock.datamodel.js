@@ -134,7 +134,7 @@ function GameMockDataModel() {
                 'spawnpoint_id': '4741e79bbbb'
             },
             {
-                'disappear_time': 1469439776900,
+                'disappear_time': 1479459776900,
                 'encounter_id': 'OTIxMDAwOTg3OTgyMDY0ODE3Mw==',
                 'latitude': 47.42762365093011,
                 'longitude': 19.04266981694098,

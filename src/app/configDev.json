@@ -9,10 +9,10 @@
     },
     "mapDefaults": {
       "center": {
-        "latitude": 47.4296049,
-        "longitude": 19.0651274
+        "latitude": 47.4969916,
+        "longitude": 19.0432316
       },
-      "zoom": 12
+      "zoom": 13
     }
   }
 }

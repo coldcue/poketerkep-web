@@ -46,12 +46,13 @@ function GameService(ENV) {
 
         angular.forEach(rawData, function(data) {
             var pokemon = {
-                id: data['pokemon_id'],
+                id: data['encounter_id'],
                 coords: {
                     latitude: data['latitude'],
                     longitude: data['longitude']
                 },
-                icon: ENV.imagePaths.pokemons + data['pokemon_id'] + '.png'
+                icon: ENV.imagePaths.pokemons + data['pokemon_id'] + '.png',
+                data: data
             };
 
             pokemons.push(pokemon);
