@@ -1,7 +1,13 @@
-<div class="container homepage">
-    <div class="row">
-        <div class="col-sm-12 text-center">
-            Content
-        </div>
-    </div>
+<div class="container-fluid homepage">
+    <ui-gmap-google-map class="full-map"
+                        center="vm.map.center"
+                        zoom="vm.map.zoom">
+        <ui-gmap-markers models="vm.playerPosition"
+                         coords="'coords'"
+                         idkey="'id'"></ui-gmap-markers>
+        <ui-gmap-markers models="vm.pokemons"
+                         coords="'coords'"
+                         idkey="'id'"
+                         icon="'icon'"></ui-gmap-markers>
+    </ui-gmap-google-map>
 </div>

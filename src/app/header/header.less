@@ -1,29 +1,28 @@
 header {
-    .navbar {
-        border-bottom: 1px solid @lightGrayColor;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
 
-        .navbar-brand {
-            margin-left: 0 !important;
-            padding: 3px 15px;
+    nav {
+        background-color: @darkGrayColor;
+        border-bottom: 1px solid @blackColor;
+        color: @whiteColor;
+        height: 50px;
+
+        .logo {
+            display: inline-block;
+            margin: 3px 0 0 0;
 
             img {
                 width: 90px;
             }
         }
 
-        ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-
-            li {
-                float: right;
-                margin: 15px 0 0 20px;
-
-                a {
-                    color: @defaultFontColor;
-                }
-            }
+        button {
+            margin: 8px 0 0 0;
+            background: transparent none;
         }
     }
 }

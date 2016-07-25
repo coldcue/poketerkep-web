@@ -8,7 +8,7 @@ angular
  * Main module configurations
  */
 /*@ngInject*/
-function MainConfig($urlRouterProvider, $httpProvider, $logProvider, ENV,
+function MainConfig($urlRouterProvider, $httpProvider, $logProvider, ENV, uiGmapGoogleMapApiProvider,
                     httpRequestInterceptorCacheBusterProvider) {
 
     // Setup cache buster for api calls
@@ -22,5 +22,13 @@ function MainConfig($urlRouterProvider, $httpProvider, $logProvider, ENV,
 
     // Disable logging in production mode
     $logProvider.debugEnabled(!ENV.production);
+
+    // Angular google maps configure
+    uiGmapGoogleMapApiProvider.configure({
+        key: ENV.googleAPIKey,
+        v: '3.23',
+        language: 'en-US',
+        libraries: 'geometry,visualization'
+    });
 
 }

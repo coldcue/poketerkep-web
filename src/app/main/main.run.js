@@ -8,7 +8,7 @@ angular
  * This function runs when the app starts
  */
 /*@ngInject*/
-function MainInit($rootScope, $state, ENV) {
+function MainInit($rootScope, $state, ENV, MockService) {
 
     // Event listener - before state change
     $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
@@ -33,5 +33,8 @@ function MainInit($rootScope, $state, ENV) {
 
     // Bind configuration values to main scope
     $rootScope.ENV = ENV;
+
+    // Mock backend endpoints
+    MockService.init();
 
 }
