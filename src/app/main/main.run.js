@@ -8,7 +8,7 @@ angular
  * This function runs when the app starts
  */
 /*@ngInject*/
-function MainInit($rootScope, $state, ENV) {
+function MainInit($rootScope, $state, $locale, ENV, MockService, amMoment) {
 
     // Event listener - before state change
     $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
@@ -25,7 +25,7 @@ function MainInit($rootScope, $state, ENV) {
     // Function to handle app back button states
     $rootScope.back = function () {
         if ($state.get($rootScope.previousStateName) === null) {
-            $state.go('homepage');
+            $state.go('map');
         } else {
             $state.go($rootScope.previousStateName, $rootScope.previousStateParams);
         }
@@ -33,5 +33,14 @@ function MainInit($rootScope, $state, ENV) {
 
     // Bind configuration values to main scope
     $rootScope.ENV = ENV;
+
+    // Mock backend endpoints
+    MockService.init();
+
+    // Angular moment locale set
+    amMoment.changeLocale('hu');
+
+    // Set group separator to space
+    $locale.NUMBER_FORMATS.GROUP_SEP = ' ';
 
 }

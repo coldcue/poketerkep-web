@@ -18,11 +18,6 @@ function MainRouteConfig($stateProvider) {
                     templateUrl: 'views/header.tpl.html',
                     controller: 'HeaderController',
                     controllerAs: 'vm'
-                },
-                'footer': {
-                    templateUrl: 'views/footer.tpl.html',
-                    controller: 'FooterController',
-                    controllerAs: 'vm'
                 }
             }
         });

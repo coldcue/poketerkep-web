@@ -13,7 +13,6 @@ describe('Unit: Main - run', function () {
 
     it('should have stateChangeStart working event handler', function () {
         httpBackend.expectGET(/views\/header/).respond(200);
-        httpBackend.expectGET(/views\/footer/).respond(200);
         httpBackend.expectGET(/views\/homepage/).respond(200);
 
         rootScope.$emit('$stateChangeStart', {

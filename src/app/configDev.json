@@ -2,6 +2,18 @@
   "ENV": {
     "name": "development",
     "production": false,
-    "apiEndpoint": ""
+    "apiEndpoint": "/api/",
+    "googleAPIKey": "AIzaSyA9meJtxjg3y8rXRu6Omsas8VQEiz5BMG8",
+    "imagePaths": {
+      "default": "images/",
+      "pokemons": "images/pokemons/"
+    },
+    "mapDefaults": {
+      "center": {
+        "latitude": 47.4969916,
+        "longitude": 19.0432316
+      },
+      "zoom": 13
+    }
   }
 }
