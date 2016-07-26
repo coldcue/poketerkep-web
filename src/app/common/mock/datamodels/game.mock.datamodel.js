@@ -196,6 +196,116 @@ function GameMockDataModel() {
                 'pokemon_name': 'Clefairy',
                 'spawnpoint_id': '4741e79adf7'
             }
+        ],
+        'pokestops': [
+            {
+                'active_pokemon_id': null,
+                'enabled': true,
+                'last_modified': 1467338281737,
+                'latitude': 47.44382,
+                'longitude': 19.037155,
+                'lure_expiration': null,
+                'pokestop_id': 'a35627e5105f4e84b6ca1b72a2c7630f.16'
+            },
+            {
+                'active_pokemon_id': null,
+                'enabled': true,
+                'last_modified': 1468600858911,
+                'latitude': 47.443663,
+                'longitude': 19.038987,
+                'lure_expiration': null,
+                'pokestop_id': '35fe86cd8edc4d62a2d0a7cb963e4b1b.16'
+            },
+            {
+                'active_pokemon_id': null,
+                'enabled': true,
+                'last_modified': 1469364581870,
+                'latitude': 47.442962,
+                'longitude': 19.036705,
+                'lure_expiration': null,
+                'pokestop_id': '31aa327504b141e7a8f2d4acefc1b7af.16'
+            },
+            {
+                'active_pokemon_id': null,
+                'enabled': true,
+                'last_modified': 1467338281735,
+                'latitude': 47.447573,
+                'longitude': 19.048023,
+                'lure_expiration': null,
+                'pokestop_id': '4f0acfc182304b9aa93215438fda05a1.16'
+            },
+            {
+                'active_pokemon_id': null,
+                'enabled': true,
+                'last_modified': 1469311365957,
+                'latitude': 47.430284,
+                'longitude': 19.06953,
+                'lure_expiration': null,
+                'pokestop_id': '274c07d791204b0e92d16eac7a8f0847.16'
+            },
+            {
+                'active_pokemon_id': null,
+                'enabled': true,
+                'last_modified': 1469367084076,
+                'latitude': 47.431394,
+                'longitude': 19.068604,
+                'lure_expiration': null,
+                'pokestop_id': '8cd8c97821654c24be3f9960f669bba9.16'
+            },
+            {
+                'active_pokemon_id': null,
+                'enabled': true,
+                'last_modified': 1469258691216,
+                'latitude': 47.430171,
+                'longitude': 19.071888,
+                'lure_expiration': null,
+                'pokestop_id': '13299b07617d4509ab493f54aaf93fda.16'
+            },
+            {
+                'active_pokemon_id': null,
+                'enabled': true,
+                'last_modified': 1467338232231,
+                'latitude': 47.434821,
+                'longitude': 19.068215,
+                'lure_expiration': null,
+                'pokestop_id': 'b5ff72f4950b401f914e2dc3e803d432.16'
+            },
+            {
+                'active_pokemon_id': null,
+                'enabled': true,
+                'last_modified': 1467338232231,
+                'latitude': 47.431556,
+                'longitude': 19.067724,
+                'lure_expiration': null,
+                'pokestop_id': '976d1ba9e23147dba4de5a47d1115056.16'
+            },
+            {
+                'active_pokemon_id': null,
+                'enabled': true,
+                'last_modified': 1469033434268,
+                'latitude': 47.430542,
+                'longitude': 19.070769,
+                'lure_expiration': null,
+                'pokestop_id': 'da415e1cfdf34172bfcd4477da3412b2.16'
+            },
+            {
+                'active_pokemon_id': null,
+                'enabled': true,
+                'last_modified': 1469377173558,
+                'latitude': 47.431833,
+                'longitude': 19.069469,
+                'lure_expiration': null,
+                'pokestop_id': '373ebc2a6bb349c39bc07942a2c3153c.11'
+            },
+            {
+                'active_pokemon_id': null,
+                'enabled': true,
+                'last_modified': 1467338232231,
+                'latitude': 47.4294,
+                'longitude': 19.069145,
+                'lure_expiration': null,
+                'pokestop_id': 'a3ada125eaad40059f2e344c5c87e9ed.11'
+            }
         ]
     };
 

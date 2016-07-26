@@ -1,0 +1,51 @@
+<div class="info-window">
+    <div  class="info-box">
+        <div class="info-box-icon">
+            <img ng-src="{{parameter.model.icon.url}}" />
+        </div>
+        <div class="info-box-content">
+            <!-- Gym info window part -->
+            <div ng-if="parameter.model.type === parameter.GAME_ITEM_TYPES.gym">
+                <p>
+                    <strong>Edzőterem</strong>
+                    <i> - {{parameter.model.data.team_info.name}}</i>
+                </p>
+                <p>
+                    Pontszám: {{parameter.model.data.gym_points | number}}
+                </p>
+            </div>
+            <!-- Pokemon info window part -->
+            <div ng-if="parameter.model.type === parameter.GAME_ITEM_TYPES.pokemon">
+                <p>
+                    <strong>{{parameter.model.data.pokemon_name}}</strong>
+                    <a ng-href="http://www.pokemon.com/us/pokedex/{{parameter.model.data.pokemon_id}}"
+                       target="_blank">#{{parameter.model.data.pokemon_id}}</a>
+                </p>
+                <p>
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    <span>{{parameter.model.data.disappear_time | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</span>
+                    <span> (<span countdown="parameter.model.data.disappear_time"></span>)</span>
+                </p>
+            </div>
+            <!-- Pokestop info window part -->
+            <div ng-if="parameter.model.type === parameter.GAME_ITEM_TYPES.pokestop">
+                <p>
+                    <strong>Pokéstop</strong>
+                    <i ng-if="parameter.model.data.lure_expiration"> (Aktív csalival)</i>
+                </p>
+                <p ng-if="parameter.model.data.lure_expiration">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    <span>{{parameter.model.data.lure_expiration | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</span>
+                    <span> (<span countdown="parameter.model.data.lure_expiration"></span>)</span>
+                </p>
+            </div>
+            <!-- Destination for all info windows -->
+            <div class="destination">
+                <a ng-href="https://maps.google.com?saddr={{parameter.playerPosition.latitude}},{{parameter.playerPosition.longitude}}&daddr={{parameter.model.coords.latitude}},{{parameter.model.coords.longitude}}"
+                   target="_blank">
+                    Útvonaltervezés
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

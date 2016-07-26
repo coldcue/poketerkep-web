@@ -15,7 +15,7 @@ function MainConfig($urlRouterProvider, $httpProvider, $logProvider, ENV, uiGmap
     httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*api.*/], true);
 
     // Define the main URL path
-    $urlRouterProvider.otherwise('/homepage');
+    $urlRouterProvider.otherwise('/map');
 
     // Enable interceptors
     $httpProvider.interceptors.push('LoaderInterceptor');

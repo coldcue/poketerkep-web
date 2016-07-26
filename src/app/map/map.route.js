@@ -2,15 +2,15 @@
 
 angular
     .module('angularApp')
-    .config(HomepageRouteConfig);
+    .config(MapRouteConfig);
 
 /**
- * Homepage route config
+ * Map route config
  */
 /*@ngInject*/
-function HomepageRouteConfig($stateProvider) {
+function MapRouteConfig($stateProvider) {
 
-    var name = 'homepage';
+    var name = 'map';
 
     $stateProvider
         .state(name, {
@@ -19,7 +19,7 @@ function HomepageRouteConfig($stateProvider) {
             views: {
                 'content@': {
                     templateUrl: 'views/' + name + '.tpl.html',
-                    controller: 'HomepageController',
+                    controller: 'MapController',
                     controllerAs: 'vm'
                 }
             }
