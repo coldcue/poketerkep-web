@@ -14,7 +14,7 @@ function MockService($httpBackend, GameMockDataModel) {
      * Constructor, initialize
      */
     function init() {
-        gameMock();
+        //gameMock();
         passThrough();
     }
 
@@ -23,6 +23,7 @@ function MockService($httpBackend, GameMockDataModel) {
      */
     function passThrough() {
         $httpBackend.whenGET(/views\//).passThrough();
+        $httpBackend.whenGET(/game/).passThrough();
     }
 
     /**

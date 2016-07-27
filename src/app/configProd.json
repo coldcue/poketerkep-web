@@ -2,7 +2,7 @@
   "ENV": {
     "name": "production",
     "production": true,
-    "apiEndpoint": "/api/",
+    "apiEndpoint": "http://poketerkep-api.eu-west-1.elasticbeanstalk.com/",
     "googleAPIKey": "AIzaSyA9meJtxjg3y8rXRu6Omsas8VQEiz5BMG8",
     "imagePaths": {
       "default": "images/",
