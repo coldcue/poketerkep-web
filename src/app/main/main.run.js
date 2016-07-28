@@ -8,7 +8,7 @@ angular
  * This function runs when the app starts
  */
 /*@ngInject*/
-function MainInit($rootScope, $state, $locale, ENV, MockService, amMoment) {
+function MainInit($rootScope, $state, $locale, ENV, MockService, amMoment, LoaderInterceptor) {
 
     // Event listener - before state change
     $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
@@ -42,5 +42,8 @@ function MainInit($rootScope, $state, $locale, ENV, MockService, amMoment) {
 
     // Set group separator to space
     $locale.NUMBER_FORMATS.GROUP_SEP = ' ';
+
+    // Ignore endpoints in loader interceptor
+    LoaderInterceptor.addIgnoredEndpoint(ENV.apiEndpoint + 'game');
 
 }
