@@ -2,7 +2,7 @@
   "ENV": {
     "name": "production",
     "production": true,
-    "apiEndpoint": "http://api.poketerkep.hu/",
+    "apiEndpoint": "https://api.poketerkep.hu/",
     "googleAPIKey": "AIzaSyA9meJtxjg3y8rXRu6Omsas8VQEiz5BMG8",
     "imagePaths": {
       "default": "images/",
@@ -13,7 +13,7 @@
         "latitude": 47.4296049,
         "longitude": 19.0651274
       },
-      "zoom": 12
+      "zoom": 15
     }
   }
 }

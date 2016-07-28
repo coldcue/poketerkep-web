@@ -8,8 +8,8 @@ angular
  * Controller for full map
  */
 /*@ngInject*/
-function MapController(ENV, GAME_ITEM_TYPES, GameDataService, GameDTO, $window, $log, $interval, $rootScope,
-                       uiGmapIsReady) {
+function MapController(ENV, GAME_ITEM_TYPES, GameDataService, GameDTO, StorageService, $window, $log, $interval,
+                       $rootScope, uiGmapIsReady) {
 
     // controllerAs with vm
     var vm = this;
@@ -30,6 +30,8 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, GameDTO, $window, 
     function init() {
         vm.centerRelocation = true;
 
+        GameDTO.init();
+
         setMapDefaults();
         getGameData();
         getPlayerPosition();
@@ -45,12 +47,16 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, GameDTO, $window, 
      */
     function setMapDefaults() {
         vm.map = {
-            center: ENV.mapDefaults.center,
+            center: StorageService.get('playerPosition') || ENV.mapDefaults.center,
             zoom: ENV.mapDefaults.zoom,
             mapEvents: {
                 'dragstart': function() {
                     vm.centerRelocation = false;
                 }
+            },
+            mapOptions: {
+                streetViewControl: false,
+                mapTypeControl: false
             },
             markerEvents: {
                 click: function (marker, eventName, model) {
@@ -75,23 +81,21 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, GameDTO, $window, 
     function getPlayerPosition() {
         if (angular.isDefined($window.navigator.geolocation)) {
             uiGmapIsReady.promise().then(function (maps) {
+                var map = maps[0].map;
+
+                // set player last position based on local storage
+                setPlayerPosition(map, StorageService.get('playerPosition'));
+
+                // get fresh player position
                 $window.navigator.geolocation.getCurrentPosition(
                     function (position) {
-                        vm.playerPosition = [{
-                            id: 'player',
-                            coords: {
-                                latitude: position.coords.latitude,
-                                longitude: position.coords.longitude
-                            }
-                        }];
+                        var playerPosition = {
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude
+                        };
 
-                        if(vm.centerRelocation) {
-                            var map = maps[0].map;
-                            map.setCenter({
-                                lat: position.coords.latitude,
-                                lng: position.coords.longitude
-                            });
-                        }
+                        StorageService.set('playerPosition', playerPosition);
+                        setPlayerPosition(map, playerPosition);
                     },
                     function (error) {
                         $log.warn('Unable to get player position: ' + error.message);
@@ -101,6 +105,28 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, GameDTO, $window, 
                     }
                 );
             });
+        }
+    }
+
+    /**
+     * Set player position marker
+     * @param map - Google map object
+     * @param coords - Position coords value pair
+     */
+    function setPlayerPosition(map, coords) {
+        if(!angular.isUndefinedOrNull(map) && !angular.isUndefinedOrNull(coords) &&
+            !angular.isUndefinedOrNull(coords.latitude)) {
+            vm.playerPosition = [{
+                id: 'player',
+                coords: coords
+            }];
+
+            if(vm.centerRelocation) {
+                map.setCenter({
+                    lat: coords.latitude,
+                    lng: coords.longitude
+                });
+            }
         }
     }
 
