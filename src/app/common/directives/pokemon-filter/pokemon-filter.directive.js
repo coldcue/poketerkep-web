@@ -21,17 +21,13 @@ function pokemonFilter() {
         },
         require: 'ngModel',
         link: function (scope, element, attrs, ngModelCtrl) {
-            // ngChange for custom directive -
-            // http://stackoverflow.com/questions/24754005/how-to-implement-an-ng-change-for-a-custom-directive
-
-            scope.vm.updateModel = function (item) {
-                ngModelCtrl.$setViewValue(item);
+            scope.vm.updateModel = function (items) {
+                if(items.length > 0 && !angular.isUndefinedOrNull(items[0])) { // bug fix...
+                    ngModelCtrl.$setViewValue(angular.copy(items));
+                } else {
+                    ngModelCtrl.$setViewValue([]);
+                }
             };
-
-            ngModelCtrl.$viewChangeListeners.push(function () {
-                scope.$eval(attrs.ngChange);
-            });
-
         }
     };
 }

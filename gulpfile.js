@@ -428,7 +428,7 @@ gulp.task('serve', ['index', 'watch'], function () {
             port: 8000,
             proxies: [{
                 source: '/api/',
-                target: IS_PROXY_DEFINED ? $.util.env.proxy : 'http://poketerkep-api.eu-west-1.elasticbeanstalk.com/'
+                target: IS_PROXY_DEFINED ? $.util.env.proxy : 'http://api.poketerkep.hu/'
             }]
         }));
 });

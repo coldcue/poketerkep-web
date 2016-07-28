@@ -1,10 +1,14 @@
 <div class="pokemon-filter">
-    <tags-input ng-model="vm.selectedPokemons"
-                placeholder="Pokémon kiválasztása">
+    <tags-input ng-model="vm.selectedObjects"
+                placeholder="Pokémon kiválasztása"
+                display-property="name"
+                key-property="id">
         <auto-complete source="vm.searchPokemons($query)"
                        min-length="0"
                        highlight-matched-text="false"
                        load-on-focus="true"
-                       load-on-empty="true"></auto-complete>
+                       load-on-empty="true"
+                       add-from-autocomplete-only="true"
+                       max-results-to-show="200"></auto-complete>
     </tags-input>
 </div>
