@@ -10,7 +10,11 @@
     "angular-google-maps": "2.3.2",
     "angular-sanitize": "^1.5.8",
     "angular-mocks": "^1.5.8",
-    "angular-moment": "^1.0.0-beta.6"
+    "angular-moment": "^1.0.0-beta.6",
+    "angular-animate": "^1.5.8",
+    "bootstrap-additions": "^0.3.1",
+    "angular-motion": "^0.4.4",
+    "ng-tags-input": "^3.1.1"
   },
   "devDependencies": {
     "bootstrap": "^3.3.6"

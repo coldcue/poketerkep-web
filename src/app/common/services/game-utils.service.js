@@ -2,13 +2,13 @@
 
 angular
     .module('angularApp')
-    .service('GameService', GameService);
+    .service('GameUtilsService', GameUtilsService);
 
 /**
- * Game service to handle game data
+ * Game utils service to handle game data
  */
 /*@ngInject*/
-function GameService(ENV, GAME_ITEM_TYPES, GAME_TEAM_TYPES) {
+function GameUtilsService(ENV, GAME_ITEM_TYPES, GAME_TEAM_TYPES) {
 
     return {
         convertGymsData: convertGymsData,

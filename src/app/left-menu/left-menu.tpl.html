@@ -1,0 +1,71 @@
+<div class="aside left-menu" tabindex="-1" role="dialog">
+    <div class="aside-dialog">
+        <div class="aside-content">
+            <div class="aside-header">
+                <button type="button" class="close" ng-click="$hide()">&times;</button>
+                <h4 class="aside-title">Menü</h4>
+            </div>
+            <div class="aside-body">
+                <h3>Térkép szűrők</h3>
+                <div class="filters">
+                    <div class="row">
+                        <div class="col-xs-6 filter-name">Pokémonok</div>
+                        <div class="col-xs-6 filter-control">
+                            <label class="switch">
+                                <input type="checkbox"
+                                       ng-model="vm.filterStates.pokemons"
+                                       ng-checked="vm.filterStates.pokemons"
+                                       ng-change="vm.setFilters()" />
+                                <div class="slider"></div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 filter-name">Gymek</div>
+                        <div class="col-xs-6 filter-control">
+                            <label class="switch">
+                                <input type="checkbox"
+                                       ng-model="vm.filterStates.gyms"
+                                       ng-checked="vm.filterStates.gyms"
+                                       ng-change="vm.setFilters()" />
+                                <div class="slider"></div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 filter-name">Pokéstopok</div>
+                        <div class="col-xs-6 filter-control">
+                            <label class="switch">
+                                <input type="checkbox"
+                                       ng-model="vm.filterStates.pokestops"
+                                       ng-checked="vm.filterStates.pokestops"
+                                       ng-change="vm.setFilters()" />
+                                <div class="slider"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <h5><strong>Szűrés pokémonokra:</strong></h5>
+                <div class="filters">
+                    <div class="row">
+                        <div class="col-xs-6 filter-name">Megjelenítés/elrejtés</div>
+                        <div class="col-xs-6 filter-control">
+                            <label class="switch">
+                                <input type="checkbox"
+                                       ng-model="vm.filterStates.showOrHide"
+                                       ng-checked="vm.filterStates.showOrHide"
+                                       ng-change="vm.setFilters()" />
+                                <div class="slider"></div>
+                            </label>
+                        </div>
+                    </div>
+                    <pokemon-filter ng-model="vm.selectedPokemons" ng-change="vm.setFilters()"></pokemon-filter>
+                </div>
+            </div>
+            <div class="aside-footer">
+                <p>Verzió:</p>
+                <p>{{ENV.build}} - #{{ENV.revision}}</p>
+            </div>
+        </div>
+    </div>
+</div>

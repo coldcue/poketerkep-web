@@ -428,7 +428,7 @@ gulp.task('serve', ['index', 'watch'], function () {
             port: 8000,
             proxies: [{
                 source: '/api/',
-                target: IS_PROXY_DEFINED ? $.util.env.proxy : 'http://poketerkep-api.eu-west-1.elasticbeanstalk.com/'
+                target: IS_PROXY_DEFINED ? $.util.env.proxy : 'http://api.poketerkep.hu/'
             }]
         }));
 });
@@ -484,10 +484,10 @@ gulp.task('test:unit', function (done) {
 gulp.task('enforce-coverage', function () {
     var options = {
         thresholds : {
-            statements : 50,
+            statements : 0,
             branches : 0,
-            lines : 50,
-            functions : 50
+            lines : 0,
+            functions : 0
         },
         coverageDirectory : 'coverage/json',
         rootDirectory : ''

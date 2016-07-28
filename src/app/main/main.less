@@ -16,7 +16,9 @@
 @import "../common/less/variables.less";
 @import "../common/less/fa.less";
 @import "../common/directives/loader/loader.less";
+@import "../common/directives/pokemon-filter/pokemon-filter.less";
 @import "../header/header.less";
+@import "../left-menu/left-menu.less";
 @import "../map/map.less";
 
 /**
@@ -41,4 +43,58 @@ body {
     height: 100%;
     position: relative;
     width: 100%;
+}
+
+/**
+ * Switch
+ */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 26px;
+
+    input {
+        display: none;
+
+        &:checked + .slider {
+            background-color: @blueColor;
+        }
+
+        &:focus + .slider {
+            box-shadow: 0 0 1px @blueColor;
+        }
+
+        &:checked + .slider:before {
+            -webkit-transform: translateX(34px);
+            -ms-transform: translateX(34px);
+            transform: translateX(34px);
+        }
+    }
+
+    .slider {
+        border-radius: 26px;
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: @lightGrayColor2;
+        -webkit-transition: .4s;
+        transition: .4s;
+
+        &:before {
+            border-radius: 50%;
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+    }
 }

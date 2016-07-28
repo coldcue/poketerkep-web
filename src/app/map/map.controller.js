@@ -8,7 +8,8 @@ angular
  * Controller for full map
  */
 /*@ngInject*/
-function MapController(ENV, GAME_ITEM_TYPES, GameDataService, GameService, $window, $log, uiGmapIsReady) {
+function MapController(ENV, GAME_ITEM_TYPES, GameDataService, GameDTO, $window, $log, $interval, $rootScope,
+                       uiGmapIsReady) {
 
     // controllerAs with vm
     var vm = this;
@@ -32,6 +33,9 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, GameService, $wind
         setMapDefaults();
         getGameData();
         getPlayerPosition();
+
+        $interval(getGameData, 5000);
+        $rootScope.$on('updateGameData', setMapData);
     }
 
     init();
@@ -105,10 +109,19 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, GameService, $wind
      */
     function getGameData() {
         GameDataService.get().$promise.then(function (data) {
-            vm.gyms = GameService.convertGymsData(data.gyms);
-            vm.pokemons = GameService.convertPokemonsData(data.pokemons);
-            vm.pokestops = GameService.convertPokestopsData(data.pokestops);
+            GameDTO.setRAWGame(data);
+            setMapData();
         });
+    }
+
+    /**
+     * Get map data based on GameDTO data
+     */
+    function setMapData() {
+        var gameData = GameDTO.getFilteredGame();
+        vm.gyms = gameData.gyms;
+        vm.pokemons = gameData.pokemons;
+        vm.pokestops = gameData.pokestops;
     }
 
 }
