@@ -10,7 +10,7 @@ angular
 /*@ngInject*/
 function StorageService(localStorageService) {
 
-    var rootObject = 'data';
+    var rootObject = 'pokeTerkep_v1';
 
     return {
         get: get,

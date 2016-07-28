@@ -8,7 +8,7 @@ angular
  * Game DTO
  */
 /*@ngInject*/
-function GameDTO(GameUtilsService) {
+function GameDTO(GameUtilsService, StorageService) {
 
     // Global variables
     this.game = {
@@ -18,11 +18,29 @@ function GameDTO(GameUtilsService) {
     };
     this.filterStates = {
         pokemons: true,
-        gyms: true,
-        pokestops: true,
+        gyms: false,
+        pokestops: false,
         showOrHide: true
     };
     this.selectedPokemons = [];
+
+    /**
+     * Init GameDTO global variables
+     */
+    this.init = function() {
+        var storageFilterStates = StorageService.get('filterStates');
+        var storageSelectedPokemons = StorageService.get('selectedPokemons');
+
+        if(!angular.isUndefinedOrNull(storageFilterStates)) {
+            this.filterStates = storageFilterStates;
+        }
+
+        if(!angular.isUndefinedOrNull(storageSelectedPokemons)) {
+            this.selectedPokemons = storageSelectedPokemons;
+        }
+
+        return true;
+    };
 
     /**
      * Get game object
@@ -46,6 +64,38 @@ function GameDTO(GameUtilsService) {
         this.game.gyms = GameUtilsService.convertGymsData(data.gyms);
         this.game.pokemons = GameUtilsService.convertPokemonsData(data.pokemons);
         this.game.pokestops = GameUtilsService.convertPokestopsData(data.pokestops);
+        return true;
+    };
+
+    /**
+     * Get filterStates object
+     */
+    this.getFilterStates = function() {
+        return this.filterStates;
+    };
+
+    /**
+     * Set filterStates object
+     */
+    this.setFilterStates = function(filterStates) {
+        this.filterStates = filterStates;
+        StorageService.set('filterStates', filterStates);
+        return true;
+    };
+
+    /**
+     * Get selectedPokemons object
+     */
+    this.getSelectedPokemons = function() {
+        return this.selectedPokemons;
+    };
+
+    /**
+     * Set selectedPokemons object
+     */
+    this.setSelectedPokemons = function(selectedPokemons) {
+        this.selectedPokemons = selectedPokemons;
+        StorageService.set('selectedPokemons', selectedPokemons);
         return true;
     };
 

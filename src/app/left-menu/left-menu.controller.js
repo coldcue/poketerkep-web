@@ -20,8 +20,8 @@ function LeftMenuController(GameDTO, $rootScope) {
      * Constructor, initialize
      */
     function init() {
-        vm.filterStates = GameDTO.filterStates;
-        vm.selectedPokemons = GameDTO.selectedPokemons;
+        vm.filterStates = GameDTO.getFilterStates();
+        vm.selectedPokemons = GameDTO.getSelectedPokemons();
     }
 
     init();
@@ -30,8 +30,8 @@ function LeftMenuController(GameDTO, $rootScope) {
      * Set game filters in GameDTO
      */
     function setFilters() {
-        GameDTO.filterStates = vm.filterStates;
-        GameDTO.selectedPokemons = vm.selectedPokemons;
+        GameDTO.setFilterStates(vm.filterStates);
+        GameDTO.setSelectedPokemons(vm.selectedPokemons);
         $rootScope.$broadcast('updateGameData');
     }
 
