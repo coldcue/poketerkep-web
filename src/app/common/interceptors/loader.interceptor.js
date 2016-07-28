@@ -11,13 +11,23 @@ angular
 function LoaderInterceptor($rootScope, $q) {
 
     var requestCount = 0;
+    var ignoredEndpoints = [];
 
     return {
         request: function (request) {
             requestCount++;
 
-            // Show loader
-            $rootScope.$broadcast('loader:Show');
+            // Check if the url is ignored
+            var isIgnored = false;
+            angular.forEach(ignoredEndpoints, function (ignoredUrl) {
+                if (request.url.indexOf(ignoredUrl) !== -1) {
+                    isIgnored = true;
+                }
+            });
+
+            if (!isIgnored) {
+                $rootScope.$broadcast('loader:Show');
+            }
 
             return request || $q.when(request);
         },
@@ -36,6 +46,9 @@ function LoaderInterceptor($rootScope, $q) {
             }
 
             return $q.reject(response);
+        },
+        addIgnoredEndpoint: function (endpointUrl) {
+            ignoredEndpoints.push(endpointUrl);
         }
     };
 
