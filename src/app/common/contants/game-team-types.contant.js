@@ -10,21 +10,21 @@ angular
         instinct: {
             id: 1,
             name: 'Instinct',
-            icon: 'instinct@2x.png'
+            icon: 'instinct.png'
         },
         mystic: {
             id: 2,
             name: 'Mystic',
-            icon: 'mystic@2x.png'
+            icon: 'mystic.png'
         },
         valor: {
             id: 3,
             name: 'Valor',
-            icon: 'valor@2x.png'
+            icon: 'valor.png'
         },
         uncontested: {
             id: null,
             name: 'Nem elfoglalt',
-            icon: 'uncontested@2x.png'
+            icon: 'uncontested.png'
         }
     });
