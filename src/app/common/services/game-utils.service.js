@@ -141,8 +141,8 @@ function GameUtilsService(ENV, GAME_ITEM_TYPES, GAME_TEAM_TYPES) {
      * @param lure - Lure expiration time
      */
     function getPokestopIcon(lure) {
-        return angular.isUndefinedOrNull(lure) ? ENV.imagePaths.default + 'pokestop@2x.png' :
-        ENV.imagePaths.default + 'pokestop_lure@2x.png';
+        return angular.isUndefinedOrNull(lure) ? ENV.imagePaths.default + 'pokestop.png' :
+        ENV.imagePaths.default + 'pokestop_lure.png';
     }
 
 }
