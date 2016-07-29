@@ -13,7 +13,8 @@
         "latitude": 47.4296049,
         "longitude": 19.0651274
       },
-      "zoom": 15
+      "zoom": 15,
+      "refreshTime": 15000
     }
   }
 }
