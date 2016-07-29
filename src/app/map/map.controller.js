@@ -15,28 +15,26 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, GameDTO, StorageSe
     var vm = this;
 
     // Global variables
-    vm.lastMarker = undefined;
+    var timer,
+        queryParams = {},
+        centerRelocation = true;
+
+    // ViewModel bindings
     vm.playerPosition = [];
     vm.gyms = [];
     vm.pokemons = [];
     vm.pokestops = [];
-
-    // ViewModel bindings
     vm.GAME_ITEM_TYPES = GAME_ITEM_TYPES;
 
     /**
      * Constructor, initialize
      */
     function init() {
-        vm.centerRelocation = true;
-
         GameDTO.init();
 
         setMapDefaults();
-        getGameData();
         getPlayerPosition();
 
-        $interval(getGameData, 5000);
         $rootScope.$on('updateGameData', setMapData);
     }
 
@@ -51,7 +49,20 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, GameDTO, StorageSe
             zoom: ENV.mapDefaults.zoom,
             mapEvents: {
                 'dragstart': function() {
-                    vm.centerRelocation = false;
+                    centerRelocation = false;
+                },
+                'idle': function(map) {
+                    var bounds = map.getBounds();
+
+                    queryParams = {
+                        neLat: bounds.getNorthEast().lat(),
+                        neLng: bounds.getNorthEast().lng(),
+                        swLat: bounds.getSouthWest().lat(),
+                        swLng: bounds.getSouthWest().lng()
+                    };
+
+                    getGameData();
+                    restartPolling();
                 }
             },
             mapOptions: {
@@ -121,7 +132,7 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, GameDTO, StorageSe
                 coords: coords
             }];
 
-            if(vm.centerRelocation) {
+            if(centerRelocation) {
                 map.setCenter({
                     lat: coords.latitude,
                     lng: coords.longitude
@@ -131,10 +142,34 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, GameDTO, StorageSe
     }
 
     /**
+     * Start getGameData polling
+     */
+    function startPolling() {
+        timer = $interval(getGameData, 5000);
+    }
+
+    /**
+     * Stop getGameData polling
+     */
+    function stopPolling() {
+        if(!angular.isUndefinedOrNull(timer)) {
+            $interval.cancel(timer);
+        }
+    }
+
+    /**
+     * Restart getGameData polling
+     */
+    function restartPolling() {
+        stopPolling();
+        startPolling();
+    }
+
+    /**
      * Get game data from backend
      */
     function getGameData() {
-        GameDataService.get().$promise.then(function (data) {
+        GameDataService.get(queryParams).$promise.then(function (data) {
             GameDTO.setRAWGame(data);
             setMapData();
         });
