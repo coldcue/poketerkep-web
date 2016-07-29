@@ -21,7 +21,7 @@ function PokemonFilterController(POKEMONS, $scope) {
      */
     function init() {
         if (angular.isDefined($scope.ngModel) && $scope.ngModel.length !== 0) {
-            vm.selectedObjects = $scope.ngModel;
+            vm.selectedObjects = angular.copy($scope.ngModel);
         }
 
         $scope.$watch('vm.selectedObjects', pokemonsSelected, true);

@@ -51,6 +51,7 @@ function GameDTO(GameUtilsService, StorageService) {
 
     /**
      * Set game object
+     * @param data - Game data object
      */
     this.setGame = function(data) {
         this.game = data;
@@ -59,6 +60,7 @@ function GameDTO(GameUtilsService, StorageService) {
 
     /**
      * Set raw game object and convert it to internal format
+     * @param data - RAW Game data object
      */
     this.setRAWGame = function(data) {
         this.game.gyms = GameUtilsService.convertGymsData(data.gyms);
@@ -76,6 +78,7 @@ function GameDTO(GameUtilsService, StorageService) {
 
     /**
      * Set filterStates object
+     * @param filterStates - filterStates object
      */
     this.setFilterStates = function(filterStates) {
         this.filterStates = filterStates;
@@ -92,6 +95,7 @@ function GameDTO(GameUtilsService, StorageService) {
 
     /**
      * Set selectedPokemons object
+     * @param selectedPokemons - selectedPokemons object
      */
     this.setSelectedPokemons = function(selectedPokemons) {
         this.selectedPokemons = selectedPokemons;
