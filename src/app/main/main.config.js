@@ -9,7 +9,7 @@ angular
  */
 /*@ngInject*/
 function MainConfig($urlRouterProvider, $httpProvider, $logProvider, ENV, uiGmapGoogleMapApiProvider,
-                    httpRequestInterceptorCacheBusterProvider) {
+                    httpRequestInterceptorCacheBusterProvider, $locationProvider) {
 
     // Setup cache buster for api calls
     httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*api.*/], true);
@@ -30,5 +30,8 @@ function MainConfig($urlRouterProvider, $httpProvider, $logProvider, ENV, uiGmap
         language: 'en-US',
         libraries: 'geometry,visualization'
     });
+
+    // Enable pure URL-s in production mode
+    $locationProvider.html5Mode(ENV.production);
 
 }
