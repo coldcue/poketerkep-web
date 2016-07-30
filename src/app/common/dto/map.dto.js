@@ -60,7 +60,7 @@ function MapDTO(ENV, StorageService, $window, $log, uiGmapIsReady) {
                 model: null,
                 show: false,
                 closeClick: function () {
-                    _this.show = false;
+                    this.show = false;
                 }
             }
         };
