@@ -133,7 +133,6 @@ function GameDTO(GameUtilsService, StorageService) {
                 // If we have to show selected pokemons
                 angular.forEach(_this.game.pokemons, function(pokemon) {
                     if(pokemon.data['pokemon_id'] === selectedPokemon.id) {
-
                         filteredPokemons.push(pokemon);
                     }
                 });
