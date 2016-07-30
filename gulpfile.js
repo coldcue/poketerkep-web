@@ -328,6 +328,12 @@ gulp.task('config', ['version'], function () {
             }
         }))
 
+        .pipe($.if(IS_RELEASE_BUILD && IS_PROXY_DEFINED, $.jsonEditor({
+            ENV: {
+                'apiEndpoint': $.util.env.proxy
+            }
+        })))
+
         .pipe($.ngConfig('angularApp', {
             createModule: false,
             wrap: true
