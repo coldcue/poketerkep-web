@@ -36,6 +36,12 @@ Config files:
 ------------
 - `src/main/app/configDev.json`
 - `src/main/app/configProd.json`
+ 
+Upload CloudFront certificates:
+------------
+1. Delete existing key: `aws iam delete-server-certificate --server-certificate-name poketerkep.hu-cloudfront`
+2. Convert private key: `openssl rsa -in poketerkep.key -out poketerkep.key.rsa`
+3. Upload certificate: `aws iam upload-server-certificate --server-certificate-name poketerkep.hu-cloudfront --certificate-body file://OtherServer/2_poketerkep.hu.crt --private-key file://poketerkep.key.rsa --certificate-chain file://OtherServer/1_Intermediate.crt --path /cloudfront/poketerkep/`
 
 Side note:
 ------------
