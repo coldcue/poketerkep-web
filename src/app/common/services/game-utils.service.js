@@ -2,7 +2,7 @@
 
 angular
     .module('angularApp')
-    .factory('GameUtilsService', GameUtilsService);
+    .service('GameUtilsService', GameUtilsService);
 
 /**
  * Game utils service to handle game data

@@ -58,11 +58,11 @@ body {
         display: none;
 
         &:checked + .slider {
-            background-color: @greenColor3;
+            background-color: @blueColor;
         }
 
         &:focus + .slider {
-            box-shadow: 0 0 1px @greenColor3;
+            box-shadow: 0 0 1px @blueColor;
         }
 
         &:checked + .slider:before {
@@ -96,32 +96,5 @@ body {
             -webkit-transition: .4s;
             transition: .4s;
         }
-    }
-}
-
-/**
- * Btn green
- */
-.btn-green {
-    color: @whiteColor;
-    background-color: @greenColor2;
-    border-color: @greenColor1;
-
-    &:hover {
-        color: @whiteColor;
-        background-color: @greenColor3;
-        border-color: @greenColor1;
-    }
-
-    &:focus, .focus {
-        color: @whiteColor;
-        background-color: @greenColor3;
-        border-color: @greenColor1;
-    }
-
-    &:active, .active {
-        color: @whiteColor;
-        background-color: @greenColor3;
-        border-color: @greenColor1;
     }
 }
