@@ -17,6 +17,7 @@ function Countdown($interval, moment) {
 
             /**
              * Convert seconds to HH:mm:ss format
+             * @param input - Seconds
              */
             function secondsToHHmmss(input) {
                 input = Number(input);
