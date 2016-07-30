@@ -10,33 +10,35 @@ angular
 /*@ngInject*/
 function GameDTO(GameUtilsService, StorageService) {
 
+    var _this = this;
+
     // Global variables
-    this.game = {
+    _this.game = {
         gyms: [],
         pokemons: [],
         pokestops: []
     };
-    this.filterStates = {
+    _this.filterStates = {
         pokemons: true,
         gyms: false,
         pokestops: false,
         showOrHide: true
     };
-    this.selectedPokemons = [];
+    _this.selectedPokemons = [];
 
     /**
      * Init GameDTO global variables
      */
-    this.init = function() {
+    _this.init = function() {
         var storageFilterStates = StorageService.get('filterStates');
         var storageSelectedPokemons = StorageService.get('selectedPokemons');
 
         if(!angular.isUndefinedOrNull(storageFilterStates)) {
-            this.filterStates = storageFilterStates;
+            _this.filterStates = storageFilterStates;
         }
 
         if(!angular.isUndefinedOrNull(storageSelectedPokemons)) {
-            this.selectedPokemons = storageSelectedPokemons;
+            _this.selectedPokemons = storageSelectedPokemons;
         }
 
         return true;
@@ -45,16 +47,16 @@ function GameDTO(GameUtilsService, StorageService) {
     /**
      * Get game object
      */
-    this.getGame = function() {
-        return this.game;
+    _this.getGame = function() {
+        return _this.game;
     };
 
     /**
      * Set game object
      * @param data - Game data object
      */
-    this.setGame = function(data) {
-        this.game = data;
+    _this.setGame = function(data) {
+        _this.game = data;
         return true;
     };
 
@@ -62,26 +64,26 @@ function GameDTO(GameUtilsService, StorageService) {
      * Set raw game object and convert it to internal format
      * @param data - RAW Game data object
      */
-    this.setRAWGame = function(data) {
-        this.game.gyms = GameUtilsService.convertGymsData(data.gyms);
-        this.game.pokemons = GameUtilsService.convertPokemonsData(data.pokemons);
-        this.game.pokestops = GameUtilsService.convertPokestopsData(data.pokestops);
+    _this.setRAWGame = function(data) {
+        _this.game.gyms = GameUtilsService.convertGymsData(data.gyms);
+        _this.game.pokemons = GameUtilsService.convertPokemonsData(data.pokemons);
+        _this.game.pokestops = GameUtilsService.convertPokestopsData(data.pokestops);
         return true;
     };
 
     /**
      * Get filterStates object
      */
-    this.getFilterStates = function() {
-        return this.filterStates;
+    _this.getFilterStates = function() {
+        return _this.filterStates;
     };
 
     /**
      * Set filterStates object
      * @param filterStates - filterStates object
      */
-    this.setFilterStates = function(filterStates) {
-        this.filterStates = filterStates;
+    _this.setFilterStates = function(filterStates) {
+        _this.filterStates = filterStates;
         StorageService.set('filterStates', filterStates);
         return true;
     };
@@ -89,16 +91,16 @@ function GameDTO(GameUtilsService, StorageService) {
     /**
      * Get selectedPokemons object
      */
-    this.getSelectedPokemons = function() {
-        return this.selectedPokemons;
+    _this.getSelectedPokemons = function() {
+        return _this.selectedPokemons;
     };
 
     /**
      * Set selectedPokemons object
      * @param selectedPokemons - selectedPokemons object
      */
-    this.setSelectedPokemons = function(selectedPokemons) {
-        this.selectedPokemons = selectedPokemons;
+    _this.setSelectedPokemons = function(selectedPokemons) {
+        _this.selectedPokemons = selectedPokemons;
         StorageService.set('selectedPokemons', selectedPokemons);
         return true;
     };
@@ -106,30 +108,29 @@ function GameDTO(GameUtilsService, StorageService) {
     /**
      * Get filtered game object
      */
-    this.getFilteredGame = function() {
+    _this.getFilteredGame = function() {
         return {
-            pokemons: (this.filterStates.pokemons ? this.getFilteredPokemons() : []),
-            gyms: (this.filterStates.gyms ? this.game.gyms : []),
-            pokestops: (this.filterStates.pokestops ? this.game.pokestops : [])
+            pokemons: (_this.filterStates.pokemons ? _this.getFilteredPokemons() : []),
+            gyms: (_this.filterStates.gyms ? _this.game.gyms : []),
+            pokestops: (_this.filterStates.pokestops ? _this.game.pokestops : [])
         };
     };
 
     /**
      * Get filtered pokemons
      */
-    this.getFilteredPokemons = function() {
-        var _this = this;
-        var filteredPokemons = (this.filterStates.showOrHide ? [] : angular.copy(this.game.pokemons));
+    _this.getFilteredPokemons = function() {
+        var filteredPokemons = (_this.filterStates.showOrHide ? [] : angular.copy(_this.game.pokemons));
 
-        // if there is no element in selected pokemons list then we return the whole list
+        // If there is no element in selected pokemons list then we return the whole list
         if(_this.selectedPokemons.length === 0) {
             return _this.game.pokemons;
         }
 
-        // iterate over selected pokemons list
+        // Iterate over selected pokemons list
         angular.forEach(_this.selectedPokemons, function(selectedPokemon) {
             if(_this.filterStates.showOrHide) {
-                // if we have to show selected pokemons
+                // If we have to show selected pokemons
                 angular.forEach(_this.game.pokemons, function(pokemon) {
                     if(pokemon.data['pokemon_id'] === selectedPokemon.id) {
 
@@ -137,7 +138,7 @@ function GameDTO(GameUtilsService, StorageService) {
                     }
                 });
             } else {
-                // if we have to hide selected pokemons
+                // If we have to hide selected pokemons
                 angular.forEach(filteredPokemons, function(pokemon, key) {
                     if(pokemon.data['pokemon_id'] === selectedPokemon.id) {
                         filteredPokemons.splice(key, 1);
