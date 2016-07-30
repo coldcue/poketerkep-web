@@ -32,6 +32,6 @@ function MainConfig($urlRouterProvider, $httpProvider, $logProvider, ENV, uiGmap
     });
 
     // Enable pure URL-s in production mode
-    $locationProvider.html5Mode(ENV.production);
+    //$locationProvider.html5Mode(ENV.production);
 
 }
