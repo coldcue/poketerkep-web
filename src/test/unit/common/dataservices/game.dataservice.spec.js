@@ -1,16 +1,16 @@
 'use strict';
 
-describe('Unit: Header - controller', function () {
+describe('Unit: Game - data-service', function () {
 
     // Global variables
-    var HeaderController;
+    var GameDataService;
 
     // Include app
     beforeEach(angular.mock.module('angularApp'));
 
     // Include test related dependencies
-    beforeEach(angular.mock.inject(function(_$controller_) {
-        HeaderController = _$controller_('HeaderController');
+    beforeEach(angular.mock.inject(function (_GameDataService_) {
+        GameDataService = _GameDataService_;
     }));
 
     /**
@@ -18,7 +18,7 @@ describe('Unit: Header - controller', function () {
      */
 
     it('should be defined', function () {
-        expect(HeaderController).toBeDefined();
+        expect(GameDataService).toBeDefined();
     });
 
 });

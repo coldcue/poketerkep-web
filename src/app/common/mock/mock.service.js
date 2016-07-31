@@ -10,13 +10,10 @@ angular
 /*@ngInject*/
 function MockService($httpBackend, GameMockDataModel) {
 
-    /**
-     * Constructor, initialize
-     */
-    function init() {
-        //gameMock();
-        passThrough();
-    }
+    return {
+        passThrough: passThrough,
+        gameMock: gameMock
+    };
 
     /**
      * PassThrough locations
@@ -34,10 +31,5 @@ function MockService($httpBackend, GameMockDataModel) {
             return [200, GameMockDataModel.findAll(), {}];
         });
     }
-
-    return {
-        init: init,
-        passThrough: passThrough
-    };
 
 }
