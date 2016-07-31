@@ -328,6 +328,12 @@ gulp.task('config', ['version'], function () {
             }
         }))
 
+        .pipe($.if(IS_PROXY_DEFINED, $.jsonEditor({
+            ENV: {
+                'apiEndpoint': $.util.env.proxy
+            }
+        })))
+
         .pipe($.ngConfig('angularApp', {
             createModule: false,
             wrap: true
@@ -427,11 +433,7 @@ gulp.task('serve', ['index', 'watch'], function () {
             open: true,
             https: false,
             host: (IS_HOST_DEFINED) ? $.util.env.host : undefined,
-            port: 8000,
-            proxies: [{
-                source: '/api/',
-                target: IS_PROXY_DEFINED ? $.util.env.proxy : 'https://api.poketerkep.hu/'
-            }]
+            port: 8000
         }));
 });
 

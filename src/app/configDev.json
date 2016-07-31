@@ -2,7 +2,7 @@
   "ENV": {
     "name": "development",
     "production": false,
-    "apiEndpoint": "/api/",
+    "apiEndpoint": "https://testapi.poketerkep.hu/",
     "googleAPIKey": "AIzaSyA9meJtxjg3y8rXRu6Omsas8VQEiz5BMG8",
     "imagePaths": {
       "default": "images/",
@@ -13,7 +13,8 @@
         "latitude": 47.4969916,
         "longitude": 19.0432316
       },
-      "zoom": 15
+      "zoom": 15,
+      "refreshTime": 15000
     }
   }
 }
