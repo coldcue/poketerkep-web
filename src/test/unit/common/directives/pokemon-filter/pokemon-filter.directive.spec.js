@@ -1,9 +1,9 @@
 'use strict';
 
-describe('Unit: Loader - directive', function () {
+describe('Unit: PokemonFilter - directive', function () {
 
     // Global variables
-    var $rootScope, $scope, $compile, $httpBackend, element;
+    var $scope, $compile, $httpBackend, element;
 
     // Compile directive function
     function compileDirective(template) {
@@ -18,16 +18,16 @@ describe('Unit: Loader - directive', function () {
 
     // Include test related dependencies
     beforeEach(angular.mock.inject(function (_$rootScope_, _$compile_, _$httpBackend_) {
-        $rootScope = _$rootScope_;
         $scope = _$rootScope_.$new();
         $compile = _$compile_;
         $httpBackend = _$httpBackend_;
 
-        $scope.$broadcast('loader:Show');
+        $scope.model = {};
+        $scope.onChange = jasmine.createSpy('onChange');
 
-        $httpBackend.expectGET(/views\/loader/).respond(200);
+        $httpBackend.expectGET(/views\/pokemon\-filter/).respond(200);
 
-        element = compileDirective('<loader></loader>');
+        element = compileDirective('<pokemon-filter ng-model="model" ng-change="onChange()"></pokemon-filter>');
     }));
 
     /**

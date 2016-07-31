@@ -58,6 +58,7 @@ describe('Unit: MapController - controller', function () {
         expect(MapController.getGameData).toBeDefined();
 
         $httpBackend.expectGET(/game/).respond(200, {});
+
         MapController.getGameData();
 
         expect(GameDataService.get).toHaveBeenCalled();

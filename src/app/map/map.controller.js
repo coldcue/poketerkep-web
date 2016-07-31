@@ -45,7 +45,7 @@ function MapController(GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, $rootS
      * Get game data from backend
      */
     function getGameData() {
-        GameDataService.get(MapDTO.getQueryParams()).then(function (data) {
+        GameDataService.get(MapDTO.getQueryParams(), function (data) {
             GameDTO.setRAWGame(data);
             setMapData();
         });
