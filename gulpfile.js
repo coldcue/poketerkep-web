@@ -11,6 +11,7 @@ var IS_RELEASE_BUILD = $.util.env.production != null; // jshint ignore:line
 var IS_DEBUG = $.util.env.debug != null; // jshint ignore:line
 var IS_HOST_DEFINED = $.util.env.host != null; // jshint ignore:line
 var IS_PROXY_DEFINED = $.util.env.proxy != null; // jshint ignore:line
+var IS_MAINTENANCE = $.util.env.maintenance != null; // jshint ignore:line
 var revision = null;
 
 // Folder paths
@@ -331,6 +332,12 @@ gulp.task('config', ['version'], function () {
         .pipe($.if(IS_PROXY_DEFINED, $.jsonEditor({
             ENV: {
                 'apiEndpoint': $.util.env.proxy
+            }
+        })))
+
+        .pipe($.if(IS_MAINTENANCE, $.jsonEditor({
+            ENV: {
+                'maintenance': $.util.env.maintenance
             }
         })))
 
