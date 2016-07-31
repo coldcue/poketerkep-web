@@ -31,7 +31,7 @@ describe('Unit: Utils', function () {
             id: 2,
             name: 'name2'
         };
-        
+
         expect(Utils.compareByName(object1, object2)).toEqual(-1);
         expect(Utils.compareByName(object2, object1)).toEqual(1);
         expect(Utils.compareByName(object1, object1)).toEqual(0);

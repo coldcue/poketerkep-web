@@ -22,7 +22,7 @@ function pokemonFilter() {
         require: 'ngModel',
         link: function (scope, element, attrs, ngModelCtrl) {
             scope.vm.updateModel = function (items) {
-                if(items.length > 0 && !angular.isUndefinedOrNull(items[0])) { // bug fix...
+                if(items && items.length > 0 && !angular.isUndefinedOrNull(items[0])) { // bug fix...
                     ngModelCtrl.$setViewValue(angular.copy(items));
                 } else {
                     ngModelCtrl.$setViewValue([]);

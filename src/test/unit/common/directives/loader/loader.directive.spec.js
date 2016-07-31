@@ -23,11 +23,13 @@ describe('Unit: Loader - directive', function () {
         $compile = _$compile_;
         $httpBackend = _$httpBackend_;
 
-        $scope.$broadcast('loader:Show');
-
-        $httpBackend.expectGET(/views\/loader/).respond(200);
+        $httpBackend.expectGET(/loader/).respond(200);
+        $httpBackend.expectGET(/header/).respond(200);
+        $httpBackend.expectGET(/map/).respond(200);
 
         element = compileDirective('<loader></loader>');
+
+        $httpBackend.flush();
     }));
 
     /**
@@ -36,6 +38,54 @@ describe('Unit: Loader - directive', function () {
 
     it('should be defined', function () {
         expect(element).toBeDefined();
+    });
+
+    it('should have working displayElement function', function () {
+        expect($scope.displayElement).toBeDefined();
+
+        $scope.displayElement(true);
+
+        expect(element.css('display')).toEqual('');
+
+        $scope.displayElement(false);
+
+        expect(element.css('display')).toEqual('none');
+    });
+
+    it('should have working showLoading function', function () {
+        expect($scope.showLoading).toBeDefined();
+
+        var showLoading1 = $scope.showLoading();
+        var showLoading2 = $scope.showLoading();
+
+        expect(showLoading1).toBeDefined();
+        expect(showLoading2).not.toBeDefined();
+    });
+
+    it('should have working hideLoading function', function () {
+        expect($scope.hideLoading).toBeDefined();
+
+        spyOn($scope, 'displayElement');
+
+        $scope.showLoading();
+        $scope.hideLoading();
+
+        expect($scope.displayElement).toHaveBeenCalledWith(false);
+
+        $scope.$emit('loader:Show');
+    });
+
+    it('should have working event handlers', function () {
+        spyOn($scope, 'showLoading');
+        spyOn($scope, 'hideLoading');
+
+        $scope.$emit('loader:Show');
+
+        expect($scope.showLoading).toHaveBeenCalled();
+
+        $scope.$emit('loader:Hide');
+
+        expect($scope.hideLoading).toHaveBeenCalled();
     });
 
 });

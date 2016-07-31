@@ -25,9 +25,13 @@ describe('Unit: PokemonFilter - directive', function () {
         $scope.model = {};
         $scope.onChange = jasmine.createSpy('onChange');
 
-        $httpBackend.expectGET(/views\/pokemon\-filter/).respond(200);
+        $httpBackend.expectGET(/pokemon\-filter/).respond(200);
+        $httpBackend.expectGET(/header/).respond(200);
+        $httpBackend.expectGET(/map/).respond(200);
 
         element = compileDirective('<pokemon-filter ng-model="model" ng-change="onChange()"></pokemon-filter>');
+
+        $httpBackend.flush();
     }));
 
     /**
@@ -36,6 +40,18 @@ describe('Unit: PokemonFilter - directive', function () {
 
     it('should be defined', function () {
         expect(element).toBeDefined();
+    });
+
+    it('should have working updateModel method', function () {
+        var isolateScope = element.isolateScope();
+
+        expect(isolateScope.vm.updateModel).toBeDefined();
+
+        isolateScope.vm.updateModel();
+        expect($scope.model).toEqual([]);
+
+        isolateScope.vm.updateModel(['test']);
+        expect($scope.model).toEqual(['test']);
     });
 
 });

@@ -488,10 +488,10 @@ gulp.task('test:unit', function (done) {
 gulp.task('enforce-coverage', function () {
     var options = {
         thresholds : {
-            statements : 0,
-            branches : 0,
-            lines : 0,
-            functions : 0
+            statements : 80,
+            branches : 80,
+            lines : 80,
+            functions : 80
         },
         coverageDirectory : 'coverage/json',
         rootDirectory : ''

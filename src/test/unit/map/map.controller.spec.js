@@ -1,27 +1,12 @@
 'use strict';
 
-describe('Unit: MapController - controller', function () {
+describe('Unit: Map - controller', function () {
 
     // Global variables
     var MapController, GameDTO, GameDataService, $rootScope, $httpBackend;
 
     // Include app
     beforeEach(angular.mock.module('angularApp'));
-
-    // Mock DataServices
-    beforeEach(function() {
-        module(function($provide) {
-            $provide.factory('GameDataService', function($q) {
-                var get = jasmine.createSpy('get').and.callFake(function() {
-                    return $q.when({});
-                });
-
-                return {
-                    get: get
-                };
-            });
-        });
-    });
 
     // Include test related dependencies
     beforeEach(angular.mock.inject(function(_$controller_, _GameDTO_, _GameDataService_, _$rootScope_, _$httpBackend_) {
@@ -58,10 +43,20 @@ describe('Unit: MapController - controller', function () {
         expect(MapController.getGameData).toBeDefined();
 
         $httpBackend.expectGET(/game/).respond(200, {});
+        $httpBackend.expectGET(/header/).respond();
+        $httpBackend.expectGET(/map/).respond();
+
+        spyOn(GameDataService, 'get').and.callThrough();
+        spyOn(GameDTO, 'setRAWGame');
+        spyOn(MapController, 'setMapData');
 
         MapController.getGameData();
 
+        $httpBackend.flush();
+
         expect(GameDataService.get).toHaveBeenCalled();
+        expect(GameDTO.setRAWGame).toHaveBeenCalled();
+        expect(MapController.setMapData).toHaveBeenCalled();
     });
 
     it('should have working setMapData method to set viewModel map variables', function () {

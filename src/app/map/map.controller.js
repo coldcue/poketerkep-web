@@ -31,11 +31,11 @@ function MapController(GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, $rootS
     function init() {
         GameDTO.init();
 
-        MapDTO.init(getGameData);
+        MapDTO.init(vm.getGameData);
         vm.map = MapDTO.getMap();
         vm.playerPosition = MapDTO.getPlayerPosition();
 
-        $rootScope.$on('updateGameData', setMapData);
+        $rootScope.$on('updateGameData', vm.setMapData);
     }
 
     init();
@@ -47,7 +47,7 @@ function MapController(GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, $rootS
     function getGameData() {
         GameDataService.get(MapDTO.getQueryParams(), function (data) {
             GameDTO.setRAWGame(data);
-            setMapData();
+            vm.setMapData();
         });
     }
 
