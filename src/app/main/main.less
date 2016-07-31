@@ -39,6 +39,50 @@ body {
     color: @defaultFontColor;
 }
 
+.maintenance {
+    background-color: @blackTransparentColor;
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+
+    > div {
+        color: @whiteColor;
+        display: block;
+        font-size: 18px;
+        left: 0;
+        margin: 0 auto;
+        position: absolute;
+        text-align: center;
+        text-shadow: 2px 2px @blackColor;
+        top: 25%;
+        width: 100%;
+
+        img {
+            display: inline-block;
+            height: 173px;
+            margin: 0 auto 50px auto;
+            width: 200px;
+        }
+    }
+}
+
+@media only screen and (max-device-width : 800px) and (orientation : landscape) {
+    .maintenance > div {
+        font-size: 14px;
+        top: 20%;
+
+        img {
+            height: 87px;
+            width: 100px;
+        }
+    }
+}
+
 .content {
     height: 100%;
     position: relative;
