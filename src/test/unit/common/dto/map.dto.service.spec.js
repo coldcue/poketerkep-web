@@ -51,7 +51,7 @@ describe('Unit: MapDTO - service', function () {
             return undefined;
         });
 
-        MapDTO.init(function () {}, function () {});
+        MapDTO.init(function () {});
         var map = MapDTO.getMap();
 
         expect(map.center).toEqual(ENV.mapDefaults.center);
@@ -69,14 +69,14 @@ describe('Unit: MapDTO - service', function () {
             return mockStorageService.get(key);
         });
 
-        MapDTO.init(function () {}, function () {});
+        MapDTO.init(function () {});
         var map = MapDTO.getMap();
 
         expect(map.center).toEqual(mockCoordinates);
     });
 
     it('should have working custom map methods', function () {
-        MapDTO.init(function () {}, function () {});
+        MapDTO.init(function () {});
         var map = MapDTO.getMap();
 
         var fakeGoogleMapObject = {
@@ -167,7 +167,7 @@ describe('Unit: MapDTO - service', function () {
     });
 
     it('should have working position tracking function', function () {
-        MapDTO.init(function () {}, function () {});
+        MapDTO.init(function () {});
         var map = MapDTO.getMap();
 
         expect(MapDTO.isTrackingEnabled).toBeDefined();
@@ -184,7 +184,7 @@ describe('Unit: MapDTO - service', function () {
     });
 
     it('should have working player detection function', function () {
-        MapDTO.init(function () {}, function () {});
+        MapDTO.init(function () {});
 
         spyOn(StorageService, 'set');
         spyOn(MapDTO, 'setPlayerPosition');

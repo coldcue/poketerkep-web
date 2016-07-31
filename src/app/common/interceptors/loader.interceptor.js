@@ -20,7 +20,7 @@ function LoaderInterceptor($rootScope, $q) {
             // Check if the url is ignored
             var isIgnored = false;
             angular.forEach(ignoredEndpoints, function (ignoredUrl) {
-                if (request.url.indexOf(ignoredUrl) !== -1) {
+                if (request && request.url.indexOf(ignoredUrl) !== -1) {
                     isIgnored = true;
                 }
             });
@@ -49,6 +49,7 @@ function LoaderInterceptor($rootScope, $q) {
         },
         addIgnoredEndpoint: function (endpointUrl) {
             ignoredEndpoints.push(endpointUrl);
+            return ignoredEndpoints;
         }
     };
 

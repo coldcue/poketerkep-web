@@ -8,15 +8,12 @@ angular
  * Controller for full map
  */
 /*@ngInject*/
-function MapController(ENV, GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, $interval, $rootScope) {
+function MapController(GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, $rootScope) {
 
     // controllerAs with vm
     var vm = this;
 
-    // Global variables
-    var timer;
-
-    // ViewModel bindings
+    // ViewModel variables
     vm.map = {};
     vm.playerPosition = [];
     vm.gyms = [];
@@ -24,13 +21,17 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, $
     vm.pokestops = [];
     vm.GAME_ITEM_TYPES = GAME_ITEM_TYPES;
 
+    // ViewModel functions
+    vm.getGameData = getGameData;
+    vm.setMapData = setMapData;
+
     /**
      * Constructor, initialize
      */
     function init() {
         GameDTO.init();
 
-        MapDTO.init(getGameData, restartPolling);
+        MapDTO.init(getGameData);
         vm.map = MapDTO.getMap();
         vm.playerPosition = MapDTO.getPlayerPosition();
 
@@ -41,34 +42,10 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, $
 
 
     /**
-     * Start getGameData polling
-     */
-    function startPolling() {
-        timer = $interval(getGameData, ENV.mapDefaults.refreshTime);
-    }
-
-    /**
-     * Stop getGameData polling
-     */
-    function stopPolling() {
-        if (!angular.isUndefinedOrNull(timer)) {
-            $interval.cancel(timer);
-        }
-    }
-
-    /**
-     * Restart getGameData polling
-     */
-    function restartPolling() {
-        stopPolling();
-        startPolling();
-    }
-
-    /**
      * Get game data from backend
      */
     function getGameData() {
-        GameDataService.get(MapDTO.getQueryParams()).$promise.then(function (data) {
+        GameDataService.get(MapDTO.getQueryParams()).then(function (data) {
             GameDTO.setRAWGame(data);
             setMapData();
         });

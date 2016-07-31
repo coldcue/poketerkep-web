@@ -10,11 +10,12 @@ angular
 /*@ngInject*/
 function GameUtilsService(ENV, GAME_ITEM_TYPES, GAME_TEAM_TYPES) {
 
-    return {
+    var gameUtilsService = {
         convertGymsData: convertGymsData,
         convertPokemonsData: convertPokemonsData,
         convertPokestopsData: convertPokestopsData,
-        getTeamData: getTeamData
+        getTeamData: getTeamData,
+        getPokestopIcon: getPokestopIcon
     };
 
     /**
@@ -25,7 +26,7 @@ function GameUtilsService(ENV, GAME_ITEM_TYPES, GAME_TEAM_TYPES) {
         var gyms = [];
 
         angular.forEach(rawData, function(data) {
-            var teamData = getTeamData(data['team_id']);
+            var teamData = gameUtilsService.getTeamData(data['team_id']);
 
             var gym = {
                 type: GAME_ITEM_TYPES.gym,
@@ -93,7 +94,7 @@ function GameUtilsService(ENV, GAME_ITEM_TYPES, GAME_TEAM_TYPES) {
                     longitude: data['longitude']
                 },
                 icon: {
-                    url: getPokestopIcon(data['lure_expiration']),
+                    url: gameUtilsService.getPokestopIcon(data['lure_expiration']),
                     scaledSize: { width: 25, height: 25 }
                 },
                 data: data
@@ -144,5 +145,7 @@ function GameUtilsService(ENV, GAME_ITEM_TYPES, GAME_TEAM_TYPES) {
         return angular.isUndefinedOrNull(lure) ? ENV.imagePaths.default + 'pokestop.png' :
         ENV.imagePaths.default + 'pokestop_lure.png';
     }
+
+    return gameUtilsService;
 
 }

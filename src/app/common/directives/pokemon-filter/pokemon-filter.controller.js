@@ -8,13 +8,14 @@ angular
  * Controller for pokemon filter
  */
 /*@ngInject*/
-function PokemonFilterController(POKEMONS, $scope) {
+function PokemonFilterController(POKEMONS, Utils, $scope) {
 
     // controllerAs with vm
     var vm = this;
 
     // Global functions
     vm.searchPokemons = searchPokemons;
+    vm.pokemonsSelected = pokemonsSelected;
 
     /**
      * Constructor, initialize
@@ -24,7 +25,7 @@ function PokemonFilterController(POKEMONS, $scope) {
             vm.selectedObjects = angular.copy($scope.ngModel);
         }
 
-        $scope.$watch('vm.selectedObjects', pokemonsSelected, true);
+        $scope.$watch('vm.selectedObjects', vm.pokemonsSelected, true);
     }
     init();
 
@@ -33,8 +34,8 @@ function PokemonFilterController(POKEMONS, $scope) {
      * @param term - Search term
      */
     function searchPokemons(term) {
-        if(term.length === 0) {
-            return POKEMONS.sort(sortPokemons);
+        if(angular.isUndefinedOrNull(term) || term.length === 0) {
+            return POKEMONS.sort(Utils.sortPokemons);
         }
 
         var filteredArray = [];
@@ -45,22 +46,7 @@ function PokemonFilterController(POKEMONS, $scope) {
             }
         });
 
-        return filteredArray.sort(sortPokemons);
-    }
-
-    /**
-     * Sort by pokemon name
-     * @param a - First comparable object
-     * @param b - Second comparable object
-     */
-    function sortPokemons(a, b) {
-        if (a.name < b.name) {
-            return -1;
-        }
-        if (a.name > b.name) {
-            return 1;
-        }
-        return 0;
+        return filteredArray.sort(Utils.sortPokemons);
     }
 
     /**
@@ -69,9 +55,7 @@ function PokemonFilterController(POKEMONS, $scope) {
      */
     function pokemonsSelected(newValue) {
         if(!angular.isUndefinedOrNull(newValue)) {
-           if (vm.selectedObjects !== $scope.ngModel) {
-               vm.updateModel(newValue);
-           }
+            vm.updateModel(newValue);
         }
     }
 
