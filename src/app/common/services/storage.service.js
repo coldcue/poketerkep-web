@@ -12,7 +12,7 @@ function StorageService(localStorageService) {
 
     var rootObject = 'pokeTerkep_v1';
 
-    return {
+    var storageService = {
         get: get,
         getAll: getAll,
         set: set,
@@ -24,7 +24,7 @@ function StorageService(localStorageService) {
      * @param key - Data key
      */
     function get(key) {
-        var data = getAll();
+        var data = storageService.getAll();
         return data[key];
     }
 
@@ -41,7 +41,7 @@ function StorageService(localStorageService) {
      * @param value - Data value
      */
     function set(key, value) {
-        var data = getAll();
+        var data = storageService.getAll();
         data[key] = value;
         localStorageService.set(rootObject, data);
         return true;
@@ -52,12 +52,14 @@ function StorageService(localStorageService) {
      * @param object - JSON object
      */
     function setObject(object) {
-        var data = getAll();
+        var data = storageService.getAll();
         angular.forEach(object, function(value, key) {
             data[key] = value;
         });
         localStorageService.set(rootObject, data);
         return true;
     }
+
+    return storageService;
 
 }

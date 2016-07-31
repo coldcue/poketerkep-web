@@ -23,7 +23,7 @@ function Loader($timeout) {
              * http://stackoverflow.com/questions/27842299/can-ng-show-directive-be-used-with-a-delay
              * */
 
-            var displayElement = function (display) {
+            scope.displayElement = function (display) {
                 if(display) {
                     element.css({'display': ''});
                 } else {
@@ -31,16 +31,17 @@ function Loader($timeout) {
                 }
             };
 
-            var showLoading = function () {
+            scope.showLoading = function () {
                 // If showing is already in progress just wait
                 if (timer) {
                     return;
                 }
 
-                timer = $timeout(displayElement.bind(this, true), delay);
+                timer = $timeout(scope.displayElement.bind(this, true), delay);
+                return timer;
             };
 
-            var hideLoading = function () {
+            scope.hideLoading = function () {
                 // If the timer is in progress we need to cancel it to ensure everything stays in sync
                 if (timer) {
                     $timeout.cancel(timer);
@@ -48,7 +49,7 @@ function Loader($timeout) {
 
                 timer = null;
 
-                displayElement(false);
+                scope.displayElement(false);
             };
 
             /*
@@ -56,10 +57,10 @@ function Loader($timeout) {
              * */
 
             scope.$on('loader:Show', function() {
-                showLoading();
+                scope.showLoading();
             });
             scope.$on('loader:Hide', function() {
-                hideLoading();
+                scope.hideLoading();
             });
         }
     };

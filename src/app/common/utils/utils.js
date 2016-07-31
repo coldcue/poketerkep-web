@@ -10,6 +10,24 @@ angular
 /*@ngInject*/
 function Utils() {
 
+    return {
+        compareByName: compareByName
+    };
+
+    /**
+     * Compares two object by name
+     * Helper function for array.sort(), ascending sorting
+     */
+    function compareByName(a, b) {
+        if (a.name < b.name) {
+            return -1;
+        }
+        if (a.name > b.name) {
+            return 1;
+        }
+        return 0;
+    }
+
 }
 
 /**

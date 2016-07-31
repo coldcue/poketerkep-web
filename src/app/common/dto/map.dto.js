@@ -8,7 +8,7 @@ angular
  * Map DTO
  */
 /*@ngInject*/
-function MapDTO(ENV, StorageService, $window, $log, uiGmapIsReady) {
+function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsReady) {
 
     var _this = this;
 
@@ -21,9 +21,8 @@ function MapDTO(ENV, StorageService, $window, $log, uiGmapIsReady) {
     /**
      * Init MapDTO defaults
      * @param getGameData - Attach getGameData function (in map controller)
-     * @param restartPolling - Attach restartPolling function (in map controller)
      */
-    _this.init = function (getGameData, restartPolling) {
+    _this.init = function (getGameData) {
         _this.map = {
             center: StorageService.get('playerPosition') || ENV.mapDefaults.center,
             zoom: ENV.mapDefaults.zoom,
@@ -42,7 +41,7 @@ function MapDTO(ENV, StorageService, $window, $log, uiGmapIsReady) {
                     };
 
                     getGameData();
-                    restartPolling();
+                    IntervalService.restartInterval(getGameData);
                 }
             },
             mapOptions: {

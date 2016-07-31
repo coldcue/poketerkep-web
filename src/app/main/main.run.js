@@ -2,13 +2,13 @@
 
 angular
     .module('angularApp')
-    .run(MainInit);
+    .run(MainRun);
 
 /**
  * This function runs when the app starts
  */
 /*@ngInject*/
-function MainInit($rootScope, $state, $locale, ENV, MockService, amMoment, LoaderInterceptor) {
+function MainRun($rootScope, $state, $locale, ENV, MockService, amMoment, LoaderInterceptor) {
 
     // Event listener - before state change
     $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
@@ -35,7 +35,7 @@ function MainInit($rootScope, $state, $locale, ENV, MockService, amMoment, Loade
     $rootScope.ENV = ENV;
 
     // Mock backend endpoints
-    MockService.init();
+    MockService.passThrough();
 
     // Angular moment locale set
     amMoment.changeLocale('hu');
