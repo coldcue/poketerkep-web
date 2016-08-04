@@ -29,15 +29,34 @@
     </script>
 </head>
 <body>
+<!-- BEGIN Facebook -->
+<div id="fb-root"></div>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=1791470414460375";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- END Facebook-->
+<!-- BEGIN Maintenance-->
 <div class="maintenance" ng-show="ENV.maintenance">
     <div>
-        <img ng-src="images/sad-pikachu.png" />
+        <img ng-src="images/sad-pikachu.png"/>
         <div class="text">
             <p>A szerverek karbantartás alatt vannak vagy nem elérhetőek.</p>
-            <p>Kérjük, nézz vissza később!</p>
+            <p>Kövesd az eseményeket a facebook oldalunkon: </p>
+            <div class="fb-page" data-href="https://www.facebook.com/poketerkep/" data-tabs="timeline"
+                 data-small-header="false" data-adapt-container-width="true" data-hide-cover="false"
+                 data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/poketerkep/" class="fb-xfbml-parse-ignore"><a
+                    href="https://www.facebook.com/poketerkep/">PokeTerkep.hu</a></blockquote>
+            </div>
         </div>
     </div>
 </div>
+<!-- END Maintenance-->
 <div ui-view="header"></div>
 <div class="content" ui-view="content"></div>
 <loader></loader>
