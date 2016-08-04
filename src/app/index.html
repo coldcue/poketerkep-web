@@ -29,15 +29,32 @@
     </script>
 </head>
 <body>
+<!-- BEGIN Facebook -->
+<div id="fb-root"></div>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=1791470414460375";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- END Facebook-->
+<!-- BEGIN Maintenance-->
 <div class="maintenance" ng-show="ENV.maintenance">
     <div>
-        <img ng-src="images/sad-pikachu.png" />
+        <img ng-src="images/sad-pikachu.png"/>
         <div class="text">
             <p>A szerverek karbantartás alatt vannak vagy nem elérhetőek.</p>
-            <p>Kérjük, nézz vissza később!</p>
+            <p>Kövesd az eseményeket a facebook oldalunkon: <a
+                href="https://www.facebook.com/poketerkep/">PokeTerkep.hu</a>
+            <div class="fb-like" data-href="https://www.facebook.com/poketerkep/?fref=nf" data-layout="standard"
+                 data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+            </p>
         </div>
     </div>
 </div>
+<!-- END Maintenance-->
 <div ui-view="header"></div>
 <div class="content" ui-view="content"></div>
 <loader></loader>
