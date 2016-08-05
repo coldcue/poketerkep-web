@@ -8,7 +8,7 @@ angular
  * Controller for full map
  */
 /*@ngInject*/
-function MapController(GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, $rootScope) {
+function MapController(ENV, GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, $rootScope) {
 
     // controllerAs with vm
     var vm = this;
@@ -45,10 +45,12 @@ function MapController(GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, $rootS
      * Get game data from backend
      */
     function getGameData() {
-        GameDataService.get(MapDTO.getQueryParams(), function (data) {
-            GameDTO.setRAWGame(data);
-            vm.setMapData();
-        });
+       if(angular.isUndefinedOrNull(ENV.maintenance) && !ENV.maintenance) {
+            GameDataService.get(MapDTO.getQueryParams(), function (data) {
+                GameDTO.setRAWGame(data);
+                vm.setMapData();
+            });
+        }
     }
 
     /**
