@@ -1,7 +1,7 @@
 <header>
     <nav>
         <div class="container-fluid">
-            <div class="col-xs-4">
+            <div class="col-xs-3">
                 <button type="button"
                         class="btn btn-green"
                         data-template-url="views/left-menu.tpl.html"
@@ -14,12 +14,20 @@
                     <i class="fa fa-bars" aria-hidden="true"></i>
                 </button>
             </div>
-            <div class="col-xs-4 text-center">
+            <div class="col-xs-6 text-center">
                 <a class="logo" ng-href="/">
                     <img ng-src="images/logo.png" alt="PokéTérkép" />
                 </a>
             </div>
-            <div class="col-xs-4"></div>
+            <div class="col-xs-3 text-right">
+                <span class="label label-warning"
+                      data-placement="bottom-right"
+                      data-content="Térképünk jelenleg tesztüzemben működik. A szolgáltatásunkat folyamatosan fejlesztjük, ezért előfordulhat, hogy időnként nem jelenik meg semmi vagy csak bizonyos helyeken van adat."
+                      bs-popover>
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    Béta
+                </span>
+            </div>
         </div>
     </nav>
 </header>
