@@ -53,6 +53,7 @@ describe('Unit: Map - controller', function () {
         spyOn(MapController, 'setMapData');
 
         MapController.getGameData();
+        MapController.getGameData();
 
         $httpBackend.flush();
 

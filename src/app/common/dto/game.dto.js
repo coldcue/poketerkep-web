@@ -138,11 +138,11 @@ function GameDTO(GameUtilsService, StorageService) {
                 });
             } else {
                 // If we have to hide selected pokemons
-                angular.forEach(filteredPokemons, function(pokemon, key) {
-                    if(pokemon.data['pokemon_id'] === selectedPokemon.id) {
-                        filteredPokemons.splice(key, 1);
+                for(var i = filteredPokemons.length - 1; i >= 0; i--) {
+                    if(filteredPokemons[i].data['pokemon_id'] === selectedPokemon.id) {
+                        filteredPokemons.splice(i, 1);
                     }
-                });
+                }
             }
         });
 
