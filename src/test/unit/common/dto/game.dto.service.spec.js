@@ -212,8 +212,32 @@ describe('Unit: GameDTO - service', function () {
                 },
                 {
                     'data': {
+                        'pokemon_id': 133,
+                        'pokemon_name': 'Eevee'
+                    }
+                },
+                {
+                    'data': {
                         'pokemon_id': 35,
                         'pokemon_name': 'Clefairy'
+                    }
+                },
+                {
+                    'data': {
+                        'pokemon_id': 133,
+                        'pokemon_name': 'Eevee'
+                    }
+                },
+                {
+                    'data': {
+                        'pokemon_id': 133,
+                        'pokemon_name': 'Eevee'
+                    }
+                },
+                {
+                    'data': {
+                        'pokemon_id': 133,
+                        'pokemon_name': 'Eevee'
                     }
                 }
             ]
@@ -228,7 +252,7 @@ describe('Unit: GameDTO - service', function () {
 
         expect(GameDTO.getFilteredPokemons()).toContain(fakeGameMock.pokemons[0]);
         expect(GameDTO.getFilteredPokemons()).toContain(fakeGameMock.pokemons[1]);
-        expect(GameDTO.getFilteredPokemons()).not.toContain(fakeGameMock.pokemons[2]);
+        expect(GameDTO.getFilteredPokemons()).not.toContain(fakeGameMock.pokemons[3]);
 
         GameDTO.setFilterStates({
             pokemons: true,
@@ -239,7 +263,7 @@ describe('Unit: GameDTO - service', function () {
 
         expect(GameDTO.getFilteredPokemons()).not.toContain(fakeGameMock.pokemons[0]);
         expect(GameDTO.getFilteredPokemons()).not.toContain(fakeGameMock.pokemons[1]);
-        expect(GameDTO.getFilteredPokemons()).toContain(fakeGameMock.pokemons[2]);
+        expect(GameDTO.getFilteredPokemons()).toContain(fakeGameMock.pokemons[3]);
     });
 
 });
