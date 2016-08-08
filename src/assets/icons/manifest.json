@@ -1,0 +1,17 @@
+{
+	"name": "Pok\u00e9T\u00e9rk\u00e9p",
+	"icons": [
+		{
+			"src": "\/android-chrome-192x192.png?v=20160808",
+			"sizes": "192x192",
+			"type": "image\/png"
+		},
+		{
+			"src": "\/android-chrome-512x512.png?v=20160808",
+			"sizes": "512x512",
+			"type": "image\/png"
+		}
+	],
+	"theme_color": "#ffffff",
+	"display": "standalone"
+}
