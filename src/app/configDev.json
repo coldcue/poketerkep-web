@@ -1,9 +1,16 @@
 {
   "ENV": {
     "name": "development",
+    "url": "https://test.poketerkep.hu",
     "production": false,
     "apiEndpoint": "https://testapi.poketerkep.hu/",
-    "googleAPIKey": "AIzaSyA9meJtxjg3y8rXRu6Omsas8VQEiz5BMG8",
+    "google": {
+      "analyticsId": "UA-81473943-1",
+      "apiKey": "AIzaSyA9meJtxjg3y8rXRu6Omsas8VQEiz5BMG8"
+    },
+    "facebook": {
+      "appId": "1791470414460375"
+    },
     "imagePaths": {
       "default": "images/",
       "pokemons": "images/pokemons/"

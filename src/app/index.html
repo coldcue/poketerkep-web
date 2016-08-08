@@ -2,8 +2,13 @@
 <html ng-app="angularApp" ng-cloak>
 <head>
     <base href="/">
+    <!-- BEGIN default meta data -->
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>PokéTérkép - Budapest Pokémon térképe</title>
+    <meta name="description" content="Találd meg könnyedén Budapest pokémonjait folyamatosan bővülő térképes keresőnkkel!" />
+    <!-- END default meta data -->
+    <!-- BEGIN app icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
@@ -12,37 +17,31 @@
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="msapplication-TileImage" content="/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <title>PokéTérkép</title>
+    <!-- END app icons -->
+    <!-- BEGIN open graph meta -->
+    <meta property="og:url" content="https://www.poketerkep.hu" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="PokéTérkép - Budapest Pokémon térképe" />
+    <meta property="og:description" content="Találd meg könnyedén Budapest pokémonjait folyamatosan bővülő térképes keresőnkkel!" />
+    <meta property="og:image" content="https://www.poketerkep.hu/images/og-image.png" />
+    <meta property="og:site_name" content="PokéTérkép" />
+    <meta property="og:locale" content="hu_HU" />
+    <meta property="fb:app_id" content="1791470414460375" />
+    <!-- END open graph meta -->
     <!-- inject:css -->
     <!-- endinject -->
     <!-- libraries:js -->
     <!-- endinject -->
-    <script>
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-        ga('create', 'UA-81473943-1', 'auto');
-        ga('send', 'pageview');
-    </script>
 </head>
 <body>
-<!-- BEGIN Facebook -->
+<!-- BEGIN Facebook (TODO: change include method later) -->
 <div id="fb-root"></div>
 <script>(function (d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
     js = d.createElement(s);
     js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=1791470414460375";
+    js.src = "//connect.facebook.net/hu_HU/sdk.js#xfbml=1&version=v2.7&appId=1791470414460375";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 <!-- END Facebook-->
@@ -51,13 +50,17 @@
     <div>
         <img ng-src="images/sad-pikachu.png"/>
         <div class="text">
-            <p>A szerverek karbantartás alatt vannak vagy nem elérhetőek.</p>
-            <p>Kövesd az eseményeket a facebook oldalunkon: <a
-                href="https://www.facebook.com/poketerkep/">PokeTerkep.hu</a>
-            <div class="fb-like" data-href="https://www.facebook.com/poketerkep/?fref=nf" data-layout="standard"
-                 data-action="like" data-size="small" data-show-faces="false" data-share="true"
-                 data-colorscheme="dark" data-width="225"></div>
-            </p>
+            <div>
+                A szerverek karbantartás alatt vannak vagy nem elérhetőek.
+            </div>
+            <div>
+                Kövesd az eseményeket a facebook oldalunkon: <a href="https://www.facebook.com/poketerkep/">PokeTerkep.hu</a>
+            </div>
+            <div>
+                <div class="fb-like" data-href="https://www.facebook.com/poketerkep/?fref=nf" data-layout="standard"
+                     data-action="like" data-size="small" data-show-faces="false" data-share="true"
+                     data-colorscheme="dark" data-width="280"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -67,5 +70,23 @@
 <loader></loader>
 <!-- inject:js -->
 <!-- endinject -->
+<!-- BEGIN Google Analytics (TODO: change include method later) -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-81473943-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<!-- END Google Analytics -->
 </body>
 </html>
