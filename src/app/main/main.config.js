@@ -9,7 +9,7 @@ angular
  */
 /*@ngInject*/
 function MainConfig($urlRouterProvider, $httpProvider, $logProvider, ENV, uiGmapGoogleMapApiProvider,
-                    httpRequestInterceptorCacheBusterProvider) {
+                    httpRequestInterceptorCacheBusterProvider, AnalyticsProvider, FacebookProvider) {
 
     // Setup cache buster for api calls
     httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*api.*/], true);
@@ -30,5 +30,11 @@ function MainConfig($urlRouterProvider, $httpProvider, $logProvider, ENV, uiGmap
         language: 'en-US',
         libraries: 'geometry,visualization'
     });
+
+    // Google Analytics configure
+    AnalyticsProvider.setAccount(ENV.google.analyticsId);
+
+    // Facebook configure
+    FacebookProvider.init(ENV.facebook.appId);
 
 }
