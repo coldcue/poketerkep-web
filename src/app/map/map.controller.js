@@ -45,8 +45,12 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, $
      * Get game data from backend
      */
     function getGameData() {
-       if(angular.isUndefinedOrNull(ENV.maintenance) && !ENV.maintenance) {
-            GameDataService.get(MapDTO.getQueryParams(), function (data) {
+        if (angular.isUndefinedOrNull(ENV.maintenance) && !ENV.maintenance) {
+            if (!angular.isUndefinedOrNull(vm.request)) {
+                vm.request.$cancelRequest();
+            }
+
+            vm.request = GameDataService.get(MapDTO.getQueryParams(), function (data) {
                 GameDTO.setRAWGame(data);
                 vm.setMapData();
             });

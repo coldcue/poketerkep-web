@@ -10,6 +10,8 @@ angular
 /*@ngInject*/
 function GameDataService($resource, ENV) {
 
-    return $resource(ENV.apiEndpoint + 'game');
+    return $resource(ENV.apiEndpoint + 'game', {}, {
+        get: { cancellable : true }
+    });
 
 }
