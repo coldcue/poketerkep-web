@@ -8,7 +8,7 @@ angular
  * This function runs when the app starts
  */
 /*@ngInject*/
-function MainRun($rootScope, $state, $locale, ENV, MockService, amMoment, LoaderInterceptor) {
+function MainRun($rootScope, $state, $locale, ENV, MockService, amMoment, LoaderInterceptor, Analytics) {
 
     // Event listener - before state change
     $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
@@ -45,5 +45,8 @@ function MainRun($rootScope, $state, $locale, ENV, MockService, amMoment, Loader
 
     // Ignore endpoints in loader interceptor
     LoaderInterceptor.addIgnoredEndpoint(ENV.apiEndpoint + 'game');
+
+    // Send a page view request to analytics
+    Analytics.pageView();
 
 }
