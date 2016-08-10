@@ -44,7 +44,7 @@ describe('Unit: Map - controller', function () {
     it('should have working getGameData method to load game data from backend', function () {
         expect(MapController.getGameData).toBeDefined();
 
-        $httpBackend.expectGET(/game/).respond(200, {});
+        $httpBackend.expectPOST(/game/).respond(200, {});
         $httpBackend.expectGET(/header/).respond();
         $httpBackend.expectGET(/map/).respond();
 
@@ -87,13 +87,13 @@ describe('Unit: Map - controller', function () {
             pokestops: 'test'
         };
 
-        spyOn(GameDTO, 'getFilteredGame').and.callFake(function() {
+        spyOn(GameDTO, 'getGame').and.callFake(function() {
             return fakeFilteredGame;
         });
 
         MapController.setMapData();
 
-        expect(GameDTO.getFilteredGame).toHaveBeenCalled();
+        expect(GameDTO.getGame).toHaveBeenCalled();
         expect(MapController.gyms).toEqual(fakeFilteredGame.gyms);
         expect(MapController.pokemons).toEqual(fakeFilteredGame.pokemons);
         expect(MapController.pokestops).toEqual(fakeFilteredGame.pokestops);

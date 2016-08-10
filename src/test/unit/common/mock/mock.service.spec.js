@@ -3,15 +3,16 @@
 describe('Unit: Mock - service', function () {
 
     // Global variables
-    var MockService, GameDataService;
+    var MockService, GameDataService, $httpBackend;
 
     // Include app
     beforeEach(angular.mock.module('angularApp'));
 
     // Include test related dependencies
-    beforeEach(angular.mock.inject(function (_MockService_, _GameDataService_) {
+    beforeEach(angular.mock.inject(function (_MockService_, _GameDataService_, _$httpBackend_) {
         MockService = _MockService_;
         GameDataService = _GameDataService_;
+        $httpBackend = _$httpBackend_;
     }));
 
     /**
@@ -21,11 +22,6 @@ describe('Unit: Mock - service', function () {
     it('should be defined', function () {
         expect(MockService).toBeDefined();
         expect(MockService.passThrough).toBeDefined();
-    });
-
-    it('should have working gameMock', function () {
-        MockService.gameMock();
-        expect(MockService.gameMock).toBeDefined();
     });
 
 });

@@ -11,7 +11,7 @@ angular
 function GameDataService($resource, ENV) {
 
     return $resource(ENV.apiEndpoint + 'game', {}, {
-        get: { cancellable : true }
+        get: { method: 'POST', cancellable : true }
     });
 
 }

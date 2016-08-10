@@ -331,4 +331,20 @@ function GameMockDataModel() {
         return this.getData();
     };
 
+    /**
+     * Get filtered model
+     * @param filters - Filters object
+     */
+    this.getFiltered = function(filters) {
+        var data = this.getData();
+        filters = JSON.parse(filters);
+
+        // No mock for bounds and selected pokemons
+        return {
+            gyms: (filters.gyms ? data.gyms : []),
+            pokemons: (filters.pokemons ? data.pokemons : []),
+            pokestops: (filters.pokestops ? data.pokestops : [])
+        };
+    };
+
 }

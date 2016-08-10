@@ -105,48 +105,4 @@ function GameDTO(GameUtilsService, StorageService) {
         return true;
     };
 
-    /**
-     * Get filtered game object
-     */
-    _this.getFilteredGame = function() {
-        return {
-            pokemons: (_this.filterStates.pokemons ? _this.getFilteredPokemons() : []),
-            gyms: (_this.filterStates.gyms ? _this.game.gyms : []),
-            pokestops: (_this.filterStates.pokestops ? _this.game.pokestops : [])
-        };
-    };
-
-    /**
-     * Get filtered pokemons
-     */
-    _this.getFilteredPokemons = function() {
-        var filteredPokemons = (_this.filterStates.showOrHide ? [] : angular.copy(_this.game.pokemons));
-
-        // If there is no element in selected pokemons list then we return the whole list
-        if(_this.selectedPokemons.length === 0) {
-            return _this.game.pokemons;
-        }
-
-        // Iterate over selected pokemons list
-        angular.forEach(_this.selectedPokemons, function(selectedPokemon) {
-            if(_this.filterStates.showOrHide) {
-                // If we have to show selected pokemons
-                angular.forEach(_this.game.pokemons, function(pokemon) {
-                    if(pokemon.data['pokemon_id'] === selectedPokemon.id) {
-                        filteredPokemons.push(pokemon);
-                    }
-                });
-            } else {
-                // If we have to hide selected pokemons
-                for(var i = filteredPokemons.length - 1; i >= 0; i--) {
-                    if(filteredPokemons[i].data['pokemon_id'] === selectedPokemon.id) {
-                        filteredPokemons.splice(i, 1);
-                    }
-                }
-            }
-        });
-
-        return filteredPokemons;
-    };
-
 }

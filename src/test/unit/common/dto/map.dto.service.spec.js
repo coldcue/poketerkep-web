@@ -3,7 +3,7 @@
 describe('Unit: MapDTO - service', function () {
 
     // Global variables
-    var MapDTO, ENV, StorageService, uiGmapIsReady, $window, $q;
+    var MapDTO, ENV, StorageService, uiGmapIsReady, $window, $q, $rootScope, $httpBackend;
 
     // Mock coordinates
     var mockCoordinates = {
@@ -24,13 +24,16 @@ describe('Unit: MapDTO - service', function () {
     beforeEach(angular.mock.module('angularApp'));
 
     // Include test related dependencies
-    beforeEach(angular.mock.inject(function (_MapDTO_, _ENV_, _StorageService_, _uiGmapIsReady_, _$window_, _$q_) {
+    beforeEach(angular.mock.inject(function (_MapDTO_, _ENV_, _StorageService_, _uiGmapIsReady_, _$window_, _$q_,
+                                             _$rootScope_, _$httpBackend_) {
         MapDTO = _MapDTO_;
         ENV = _ENV_;
         StorageService = _StorageService_;
         uiGmapIsReady = _uiGmapIsReady_;
         $window = _$window_;
         $q = _$q_;
+        $rootScope = _$rootScope_;
+        $httpBackend = _$httpBackend_;
     }));
 
     /**
@@ -114,10 +117,10 @@ describe('Unit: MapDTO - service', function () {
 
         map.mapEvents.idle(fakeGoogleMapObject);
 
-        expect(MapDTO.getQueryParams().neLat).toEqual(40);
-        expect(MapDTO.getQueryParams().neLng).toEqual(30);
-        expect(MapDTO.getQueryParams().swLat).toEqual(20);
-        expect(MapDTO.getQueryParams().swLng).toEqual(10);
+        expect(MapDTO.getBounds().neLat).toEqual(40);
+        expect(MapDTO.getBounds().neLng).toEqual(30);
+        expect(MapDTO.getBounds().swLat).toEqual(20);
+        expect(MapDTO.getBounds().swLng).toEqual(10);
 
         var fakeModel = 'fakeModel';
 
@@ -161,9 +164,9 @@ describe('Unit: MapDTO - service', function () {
         expect(MapDTO.setMapCenterByPlayer).toHaveBeenCalled();
     });
 
-    it('should have working getter method for queryParams object', function () {
-        expect(MapDTO.getQueryParams).toBeDefined();
-        expect(MapDTO.getQueryParams()).toBeDefined();
+    it('should have working getter method for getBounds object', function () {
+        expect(MapDTO.getBounds).toBeDefined();
+        expect(MapDTO.getBounds()).toBeDefined();
     });
 
     it('should have working position tracking function', function () {
@@ -232,7 +235,56 @@ describe('Unit: MapDTO - service', function () {
     });
 
     it('should have setMapCenterByPlayer method be defined', function () {
-        expect(MapDTO.setMapCenterByPlayer).toBeDefined();
+        MapDTO.init(function () {});
+        var map = MapDTO.getMap();
+
+        $httpBackend.expectGET(/header/).respond();
+        $httpBackend.expectGET(/map/).respond();
+
+        MapDTO.playerPosition[0] = {
+            coords: {
+                latitude: 0,
+                longitude: 0
+            }
+        };
+
+        var deferred = $q.defer();
+
+        spyOn(uiGmapIsReady, 'promise').and.returnValue(deferred.promise);
+
+        // if tracking disabled
+        map.mapEvents.dragstart();
+
+        MapDTO.setMapCenterByPlayer();
+
+        var panToSpy = jasmine.createSpy('panTo');
+
+        deferred.resolve([{
+            map: {
+                panTo: function() { panToSpy(); }
+            }
+        }]);
+
+        $rootScope.$apply();
+
+        expect(panToSpy).not.toHaveBeenCalled();
+
+        // if tracking enabled
+        MapDTO.enablePositionTracking();
+
+        MapDTO.setMapCenterByPlayer();
+
+        deferred.resolve([{
+            map: {
+                panTo: function() { panToSpy(); }
+            }
+        }]);
+
+        $rootScope.$apply();
+
+        expect(panToSpy).toHaveBeenCalled();
+
+        $httpBackend.flush();
     });
 
 });
