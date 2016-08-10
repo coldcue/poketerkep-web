@@ -8,12 +8,13 @@ angular
  * Controller for left menu
  */
 /*@ngInject*/
-function LeftMenuController(GameDTO, $rootScope) {
+function LeftMenuController(GameDTO, $rootScope, $window, $timeout) {
 
     // controllerAs with vm
     var vm = this;
 
     // ViewModel bindings
+    vm.facebookInit = facebookInit;
     vm.setFilters = setFilters;
 
     /**
@@ -22,9 +23,19 @@ function LeftMenuController(GameDTO, $rootScope) {
     function init() {
         vm.filterStates = GameDTO.getFilterStates();
         vm.selectedPokemons = GameDTO.getSelectedPokemons();
+        vm.facebookInit();
     }
 
     init();
+
+    /**
+     * Facebook reload when left menu appears
+     */
+    function facebookInit() {
+        if(!angular.isUndefinedOrNull($window.FB)) {
+            $timeout($window.FB.XFBML.parse, 0);
+        }
+    }
 
     /**
      * Set game filters in GameDTO
