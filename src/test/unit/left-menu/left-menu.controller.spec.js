@@ -3,15 +3,19 @@
 describe('Unit: LeftMenu - controller', function () {
 
     // Global variables
-    var LeftMenuController, GameDTO, $rootScope;
+    var LeftMenuController, GameDTO, $rootScope, $window, $timeout, $httpBackend;
 
     // Include app
     beforeEach(angular.mock.module('angularApp'));
 
     // Include test related dependencies
-    beforeEach(angular.mock.inject(function(_$controller_, _GameDTO_, _$rootScope_) {
+    beforeEach(angular.mock.inject(function(_$controller_, _GameDTO_, _$rootScope_, _$window_, _$timeout_,
+                                            _$httpBackend_) {
         GameDTO = _GameDTO_;
         $rootScope = _$rootScope_;
+        $window = _$window_;
+        $timeout = _$timeout_;
+        $httpBackend = _$httpBackend_;
 
         LeftMenuController = _$controller_('LeftMenuController');
     }));
@@ -27,6 +31,26 @@ describe('Unit: LeftMenu - controller', function () {
     it('should have init method which automatically initializes controller', function () {
         expect(LeftMenuController.filterStates).toBeDefined();
         expect(LeftMenuController.selectedPokemons).toBeDefined();
+    });
+
+    it('should have facebookInit method which calls FB api', function () {
+        var fbSpy = jasmine.createSpy('FB');
+
+        $httpBackend.expectGET(/header/).respond(200);
+        $httpBackend.expectGET(/map/).respond(200);
+
+        $window.FB = {
+            XFBML: {
+                parse: fbSpy
+            }
+        };
+
+        LeftMenuController.facebookInit();
+
+        $timeout.flush();
+        $httpBackend.flush();
+
+        expect(fbSpy).toHaveBeenCalled();
     });
 
     it('should have setFilters method which modifies GameDTO filterStates and updates game data', function () {
