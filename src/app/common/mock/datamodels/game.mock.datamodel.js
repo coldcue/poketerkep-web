@@ -120,81 +120,63 @@ function GameMockDataModel() {
                 'encounter_id': 'MTcxMzQyMDUzNjgxNzI5MjkxNDk=',
                 'latitude': 47.4263831387732,
                 'longitude': 19.040191820673552,
-                'pokemon_id': 133,
-                'pokemon_name': 'Eevee',
-                'spawnpoint_id': '4741e79bbc3'
+                'pokemon_id': 133
             },
             {
                 'disappear_time': 1469439920780,
                 'encounter_id': 'NjYwNTEwMzQ4NDU4Njk2ODkyNQ==',
                 'latitude': 47.42640076544301,
                 'longitude': 19.040550866164356,
-                'pokemon_id': 96,
-                'pokemon_name': 'Drowzee',
-                'spawnpoint_id': '4741e79bbbb'
+                'pokemon_id': 96
             },
             {
                 'disappear_time': 1479459776900,
                 'encounter_id': 'OTIxMDAwOTg3OTgyMDY0ODE3Mw==',
                 'latitude': 47.42762365093011,
                 'longitude': 19.04266981694098,
-                'pokemon_id': 16,
-                'pokemon_name': 'Pidgey',
-                'spawnpoint_id': '4741e79ae29'
+                'pokemon_id': 16
             },
             {
                 'disappear_time': 1469439901932,
                 'encounter_id': 'Njk3NzIzNTczNzAxNDY4OTE5Nw==',
                 'latitude': 47.424787769387436,
                 'longitude': 19.038393112361508,
-                'pokemon_id': 13,
-                'pokemon_name': 'Weedle',
-                'spawnpoint_id': '4741e7995eb'
+                'pokemon_id': 13
             },
             {
                 'disappear_time': 1469439946116,
                 'encounter_id': 'OTIzOTM4NTUyOTQ5Njc4MTI5Mw==',
                 'latitude': 47.427855272541805,
                 'longitude': 19.03901491228598,
-                'pokemon_id': 14,
-                'pokemon_name': 'Kakuna',
-                'spawnpoint_id': '4741e79c821'
+                'pokemon_id': 14
             },
             {
                 'disappear_time': 1469439487852,
                 'encounter_id': 'NTEyMjE1OTAzMTUyNDE5ODM5Nw==',
                 'latitude': 47.42627709629974,
                 'longitude': 19.038962267770007,
-                'pokemon_id': 16,
-                'pokemon_name': 'Pidgey',
-                'spawnpoint_id': '4741e79b92b'
+                'pokemon_id': 16
             },
             {
                 'disappear_time': 1469439304420,
                 'encounter_id': 'MTAyODM0NzA0MzUyODA4MDczMjU=',
                 'latitude': 47.429184096858,
                 'longitude': 19.042825929906886,
-                'pokemon_id': 43,
-                'pokemon_name': 'Oddish',
-                'spawnpoint_id': '4741e79b2d9'
+                'pokemon_id': 43
             },
             {
                 'disappear_time': 1469439941436,
                 'encounter_id': 'MTczNjMzMjM3MzA5Njg5MTIzMDE=',
                 'latitude': 47.42812005644207,
                 'longitude': 19.04301373410136,
-                'pokemon_id': 41,
-                'pokemon_name': 'Zubat',
-                'spawnpoint_id': '4741e79adff'
+                'pokemon_id': 41
             },
             {
                 'disappear_time': 1469439564796,
                 'encounter_id': 'ODY2ODg4MDQxOTgxNzI4MDk3Mw==',
                 'latitude': 47.428261887209665,
                 'longitude': 19.043111997900038,
-                'pokemon_id': 35,
-                'pokemon_name': 'Clefairy',
-                'spawnpoint_id': '4741e79adf7'
+                'pokemon_id': 35
             }
         ],
         'pokestops': [
@@ -329,6 +311,22 @@ function GameMockDataModel() {
      */
     this.findAll = function() {
         return this.getData();
+    };
+
+    /**
+     * Get filtered model
+     * @param filters - Filters object
+     */
+    this.getFiltered = function(filters) {
+        var data = this.getData();
+        filters = JSON.parse(filters);
+
+        // No mock for bounds and selected pokemons
+        return {
+            gyms: (filters.gyms ? data.gyms : []),
+            pokemons: (filters.pokemons ? data.pokemons : []),
+            pokestops: (filters.pokestops ? data.pokestops : [])
+        };
     };
 
 }

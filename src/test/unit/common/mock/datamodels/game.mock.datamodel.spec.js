@@ -38,5 +38,41 @@ describe('Unit: GameMock - datamodel', function () {
         expect(GameMockDataModel.findAll()).toEqual('fake');
     });
 
+    it('should have working getFiltered method', function () {
+        expect(GameMockDataModel.getFiltered).toBeDefined();
+
+        var fakeData = {
+            gyms: [
+                {id: 'fakeGym1'},
+                {id: 'fakeGym2'}
+            ],
+            pokemons: [
+                {id: 'fakePokemon'}
+            ],
+            pokestops: [
+                {id: 'fakePokestop1'},
+                {id: 'fakePokestop2'}
+            ]
+        };
+
+        var fakeFilters = '{"gyms":false,"pokemons":true,"pokestops":false}';
+
+        GameMockDataModel.setData(fakeData);
+
+        var originalData = fakeData;
+        fakeData.gyms = [];
+        fakeData.pokestops = [];
+
+        expect(GameMockDataModel.getFiltered(fakeFilters)).toEqual(fakeData);
+
+        fakeFilters = '{"gyms":true,"pokemons":false,"pokestops":true}';
+
+        GameMockDataModel.setData(originalData);
+
+        fakeData.pokemons = [];
+
+        expect(GameMockDataModel.getFiltered(fakeFilters)).toEqual(fakeData);
+    });
+
 });
 

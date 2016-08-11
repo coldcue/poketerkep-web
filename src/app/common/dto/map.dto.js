@@ -14,7 +14,7 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
 
     // Global variables
     _this.map = {};
-    _this.queryParams = {};
+    _this.bounds = {};
     _this.trackingEnabled = true;
     _this.playerPosition = [];
 
@@ -33,7 +33,7 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
                 'idle': function (map) {
                     var bounds = map.getBounds();
 
-                    _this.queryParams = {
+                    _this.bounds = {
                         neLat: bounds.getNorthEast().lat(),
                         neLng: bounds.getNorthEast().lng(),
                         swLat: bounds.getSouthWest().lat(),
@@ -84,10 +84,10 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
     };
 
     /**
-     * Get query params object
+     * Get bounds object
      */
-    _this.getQueryParams = function() {
-        return _this.queryParams;
+    _this.getBounds = function() {
+        return _this.bounds;
     };
 
     /**

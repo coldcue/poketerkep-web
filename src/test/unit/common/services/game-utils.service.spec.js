@@ -3,7 +3,7 @@
 describe('Unit: GameUtils - service', function () {
 
     // Global variables
-    var GameUtilsService, ENV, GAME_ITEM_TYPES, GAME_TEAM_TYPES;
+    var GameUtilsService, ENV, GAME_ITEM_TYPES, GAME_TEAM_TYPES, POKEMONS;
 
     // Mock RAW game data
     var mockRAWData = {
@@ -19,8 +19,7 @@ describe('Unit: GameUtils - service', function () {
             'encounter_id': 'MTcxMzQyMDUzNjgxNzI5MjkxNDk=',
             'latitude': 47.4263831387732,
             'longitude': 19.040191820673552,
-            'pokemon_id': 133,
-            'pokemon_name': 'Eevee'
+            'pokemon_id': 133
         }],
         pokestops: [{
             'latitude': 47.44382,
@@ -34,11 +33,13 @@ describe('Unit: GameUtils - service', function () {
     beforeEach(angular.mock.module('angularApp'));
 
     // Include test related dependencies
-    beforeEach(angular.mock.inject(function (_GameUtilsService_, _ENV_, _GAME_ITEM_TYPES_, _GAME_TEAM_TYPES_) {
+    beforeEach(angular.mock.inject(function (_GameUtilsService_, _ENV_, _GAME_ITEM_TYPES_, _GAME_TEAM_TYPES_,
+                                             _POKEMONS_) {
         GameUtilsService = _GameUtilsService_;
         ENV = _ENV_;
         GAME_ITEM_TYPES = _GAME_ITEM_TYPES_;
         GAME_TEAM_TYPES = _GAME_TEAM_TYPES_;
+        POKEMONS = _POKEMONS_;
     }));
 
     /**
@@ -138,6 +139,18 @@ describe('Unit: GameUtils - service', function () {
         var lurePokestopIcon = GameUtilsService.getPokestopIcon(true);
 
         expect(lurePokestopIcon).toEqual(ENV.imagePaths.default + 'pokestop_lure.png');
+    });
+
+    it('should have working getPokemonName method which returns pokemon name by id', function () {
+        expect(GameUtilsService.getPokemonName).toBeDefined();
+
+        var pokemonName = GameUtilsService.getPokemonName(5);
+
+        expect(pokemonName).toEqual('Charmeleon');
+
+        pokemonName = GameUtilsService.getPokemonName(300);
+
+        expect(pokemonName).toEqual('');
     });
 
 });

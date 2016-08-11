@@ -40,7 +40,7 @@ function LoaderInterceptor($rootScope, $q) {
             return response || $q.when(response);
         },
         responseError: function (response) {
-            if (!(--requestCount)) {
+            if ((--requestCount) === 0) {
                 // Hide loader
                 $rootScope.$broadcast('loader:Hide');
             }
