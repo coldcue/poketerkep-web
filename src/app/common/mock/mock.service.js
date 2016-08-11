@@ -20,15 +20,16 @@ function MockService($httpBackend, GameMockDataModel) {
      */
     function passThrough() {
         $httpBackend.whenGET(/views\//).passThrough();
-        $httpBackend.whenGET(/game/).passThrough();
+        $httpBackend.whenPOST(/game/).passThrough();
     }
 
     /**
      * Game mock
      */
+    /* istanbul ignore next */
     function gameMock() {
-        $httpBackend.whenGET(/game/).respond(function() {
-            return [200, GameMockDataModel.findAll(), {}];
+        $httpBackend.whenPOST(/game/).respond(function(method, url, data) {
+            return [200, GameMockDataModel.getFiltered(data), {}];
         });
     }
 

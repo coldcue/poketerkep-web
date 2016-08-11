@@ -8,14 +8,15 @@ angular
  * Game utils service to handle game data
  */
 /*@ngInject*/
-function GameUtilsService(ENV, GAME_ITEM_TYPES, GAME_TEAM_TYPES) {
+function GameUtilsService(ENV, GAME_ITEM_TYPES, GAME_TEAM_TYPES, POKEMONS) {
 
     var gameUtilsService = {
         convertGymsData: convertGymsData,
         convertPokemonsData: convertPokemonsData,
         convertPokestopsData: convertPokestopsData,
         getTeamData: getTeamData,
-        getPokestopIcon: getPokestopIcon
+        getPokestopIcon: getPokestopIcon,
+        getPokemonName: getPokemonName
     };
 
     /**
@@ -144,6 +145,20 @@ function GameUtilsService(ENV, GAME_ITEM_TYPES, GAME_TEAM_TYPES) {
     function getPokestopIcon(lure) {
         return angular.isUndefinedOrNull(lure) ? ENV.imagePaths.default + 'pokestop.png' :
         ENV.imagePaths.default + 'pokestop_lure.png';
+    }
+
+    /**
+     * Get pokemon name by id
+     * @param id - Pokemon id
+     */
+    function getPokemonName(id) {
+        for(var i = 0; i < POKEMONS.length; i++) {
+            if(POKEMONS[i].id === id) {
+                return POKEMONS[i].name;
+            }
+        }
+
+        return '';
     }
 
     return gameUtilsService;

@@ -110,8 +110,7 @@ describe('Unit: GameDTO - service', function () {
                 'encounter_id': 'MTcxMzQyMDUzNjgxNzI5MjkxNDk=',
                 'latitude': 47.4263831387732,
                 'longitude': 19.040191820673552,
-                'pokemon_id': 133,
-                'pokemon_name': 'Eevee'
+                'pokemon_id': 133
             }],
             pokestops: [{
                 'latitude': 47.44382,
@@ -159,111 +158,23 @@ describe('Unit: GameDTO - service', function () {
         expect(GameDTO.getSelectedPokemons()).toEqual(fakeSelectedPokemons);
     });
 
-    it('should have getFilteredGame method which returns correct game object depends on filterStates', function () {
-        expect(GameDTO.getFilteredGame).toBeDefined();
+    it('should have working getSelectedPokemonIds which returns int array', function () {
+        expect(GameDTO.getSelectedPokemonIds).toBeDefined();
 
-        spyOn(GameDTO, 'getFilteredPokemons');
+        var fakeSelectedPokemons = [
+            {
+                id: 1,
+                name: 'pokemon1'
+            },
+            {
+                id: 123,
+                name: 'pokemon123'
+            }
+        ];
 
-        GameDTO.setFilterStates({
-            pokemons: false,
-            gyms: false,
-            pokestops: false,
-            showOrHide: false
-        });
+        GameDTO.setSelectedPokemons(fakeSelectedPokemons);
 
-        expect(GameDTO.getFilteredGame()).toEqual({
-            pokemons: [],
-            gyms: [],
-            pokestops: []
-        });
-        expect(GameDTO.getFilteredPokemons).not.toHaveBeenCalled();
-
-        GameDTO.setFilterStates({
-            pokemons: true,
-            gyms: true,
-            pokestops: true,
-            showOrHide: true
-        });
-
-        expect(GameDTO.getFilteredGame()).not.toEqual({
-            pokemons: [],
-            gyms: [],
-            pokestops: []
-        });
-        expect(GameDTO.getFilteredPokemons).toHaveBeenCalled();
-    });
-
-    it('should have getFilteredPokemons method which returns correct filtered pokemons array', function () {
-        expect(GameDTO.getFilteredPokemons).toBeDefined();
-
-        var fakeGameMock = {
-            pokemons: [
-                {
-                    'data': {
-                        'pokemon_id': 133,
-                        'pokemon_name': 'Eevee'
-                    }
-                },
-                {
-                    'data': {
-                        'pokemon_id': 41,
-                        'pokemon_name': 'Zubat'
-                    }
-                },
-                {
-                    'data': {
-                        'pokemon_id': 133,
-                        'pokemon_name': 'Eevee'
-                    }
-                },
-                {
-                    'data': {
-                        'pokemon_id': 35,
-                        'pokemon_name': 'Clefairy'
-                    }
-                },
-                {
-                    'data': {
-                        'pokemon_id': 133,
-                        'pokemon_name': 'Eevee'
-                    }
-                },
-                {
-                    'data': {
-                        'pokemon_id': 133,
-                        'pokemon_name': 'Eevee'
-                    }
-                },
-                {
-                    'data': {
-                        'pokemon_id': 133,
-                        'pokemon_name': 'Eevee'
-                    }
-                }
-            ]
-        };
-
-        GameDTO.setGame(fakeGameMock);
-        GameDTO.setSelectedPokemons([]);
-
-        expect(GameDTO.getFilteredPokemons()).toEqual(fakeGameMock.pokemons);
-
-        GameDTO.setSelectedPokemons(mockSelectedPokemons);
-
-        expect(GameDTO.getFilteredPokemons()).toContain(fakeGameMock.pokemons[0]);
-        expect(GameDTO.getFilteredPokemons()).toContain(fakeGameMock.pokemons[1]);
-        expect(GameDTO.getFilteredPokemons()).not.toContain(fakeGameMock.pokemons[3]);
-
-        GameDTO.setFilterStates({
-            pokemons: true,
-            gyms: true,
-            pokestops: true,
-            showOrHide: false
-        });
-
-        expect(GameDTO.getFilteredPokemons()).not.toContain(fakeGameMock.pokemons[0]);
-        expect(GameDTO.getFilteredPokemons()).not.toContain(fakeGameMock.pokemons[1]);
-        expect(GameDTO.getFilteredPokemons()).toContain(fakeGameMock.pokemons[3]);
+        expect(GameDTO.getSelectedPokemonIds()).toEqual([1, 123]);
     });
 
 });

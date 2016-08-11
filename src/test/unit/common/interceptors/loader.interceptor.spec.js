@@ -32,6 +32,10 @@ describe('Unit: Loader - interceptor', function () {
         var request = LoaderInterceptor.request(fakeRequest);
 
         expect(request).toEqual(fakeRequest);
+
+        request = LoaderInterceptor.request();
+
+        expect(request).toBeDefined();
     });
 
     it('should have response method', function () {
@@ -50,10 +54,20 @@ describe('Unit: Loader - interceptor', function () {
     it('should have responseError method', function () {
         expect(LoaderInterceptor.responseError).toBeDefined();
 
+        var fakeRequest = {
+            url: ['test']
+        };
         var fakeResponse = {};
-        var response = LoaderInterceptor.responseError(fakeResponse);
 
-        expect(response).toBeDefined();
+        LoaderInterceptor.request(fakeRequest);
+
+        var responseError = LoaderInterceptor.responseError(fakeResponse);
+
+        expect(responseError).toBeDefined();
+
+        responseError = LoaderInterceptor.responseError(fakeResponse);
+
+        expect(responseError).toBeDefined();
     });
 
     it('should have addIgnoredEndpoint method', function () {

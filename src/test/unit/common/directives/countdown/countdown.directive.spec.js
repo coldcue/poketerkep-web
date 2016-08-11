@@ -3,7 +3,7 @@
 describe('Unit: Countdown - directive', function () {
 
     // Global variables
-    var $scope, $compile, element, moment;
+    var $scope, $compile, $interval, $httpBackend, element, moment;
 
     // Compile directive function
     function compileDirective(template) {
@@ -17,9 +17,11 @@ describe('Unit: Countdown - directive', function () {
     beforeEach(angular.mock.module('angularApp'));
 
     // Include test related dependencies
-    beforeEach(angular.mock.inject(function (_$rootScope_, _$compile_, _moment_) {
+    beforeEach(angular.mock.inject(function (_$rootScope_, _$compile_, _$interval_, _$httpBackend_, _moment_) {
         $scope = _$rootScope_.$new();
         $compile = _$compile_;
+        $interval = _$interval_;
+        $httpBackend = _$httpBackend_;
         moment = _moment_;
 
         $scope.time = moment().add(2, 'hours');
@@ -60,6 +62,30 @@ describe('Unit: Countdown - directive', function () {
         var element2 = compileDirective('<span countdown></span>');
 
         expect(element2.html()).toEqual('');
+    });
+
+    it('should have not working display function if futureDate is not defined', function () {
+        $scope.futureDate = undefined;
+
+        expect($scope.displayCountdown()).not.toBeDefined();
+    });
+
+    it('should have interval which calls display function in every second', function () {
+        spyOn($scope, 'displayCountdown');
+
+        $httpBackend.expectGET(/header/).respond(200);
+        $httpBackend.expectGET(/map/).respond(200);
+
+        $interval.flush(1000);
+
+        expect($scope.displayCountdown).toHaveBeenCalled();
+        expect($scope.displayCountdown.calls.count()).toEqual(1);
+
+        $interval.flush(2000);
+
+        expect($scope.displayCountdown.calls.count()).toEqual(3);
+
+        $httpBackend.flush();
     });
 
 });

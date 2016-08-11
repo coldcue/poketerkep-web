@@ -8,7 +8,7 @@ angular
  * Controller for full map
  */
 /*@ngInject*/
-function MapController(ENV, GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, $rootScope) {
+function MapController(ENV, GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, GameUtilsService, $rootScope) {
 
     // controllerAs with vm
     var vm = this;
@@ -24,6 +24,7 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, $
     // ViewModel functions
     vm.getGameData = getGameData;
     vm.setMapData = setMapData;
+    vm.GameUtilsService = GameUtilsService;
 
     /**
      * Constructor, initialize
@@ -35,7 +36,7 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, $
         vm.map = MapDTO.getMap();
         vm.playerPosition = MapDTO.getPlayerPosition();
 
-        $rootScope.$on('updateGameData', vm.setMapData);
+        $rootScope.$on('updateGameData', vm.getGameData);
     }
 
     init();
@@ -50,7 +51,14 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, $
                 vm.request.$cancelRequest();
             }
 
-            vm.request = GameDataService.get(MapDTO.getQueryParams(), function (data) {
+            var params = {
+                bounds: MapDTO.getBounds(),
+                selectedPokemons: GameDTO.getSelectedPokemonIds()
+            };
+
+            angular.extend(params, GameDTO.getFilterStates());
+
+            vm.request = GameDataService.get(params, function (data) {
                 GameDTO.setRAWGame(data);
                 vm.setMapData();
             });
@@ -61,7 +69,8 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, $
      * Get map data based on GameDTO data
      */
     function setMapData() {
-        var gameData = GameDTO.getFilteredGame();
+        var gameData = GameDTO.getGame();
+
         vm.gyms = gameData.gyms;
         vm.pokemons = gameData.pokemons;
         vm.pokestops = gameData.pokestops;
