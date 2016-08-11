@@ -44,8 +44,9 @@ function MainRun($rootScope, $state, $locale, ENV, MockService, amMoment, Loader
     $locale.NUMBER_FORMATS.GROUP_SEP = ' ';
 
     // Ignore endpoints in loader interceptor
+    LoaderInterceptor.addIgnoredEndpoint('https://www.facebook.com');
     LoaderInterceptor.addIgnoredEndpoint(ENV.apiEndpoint + 'game');
-
+    
     // Send a page view request to analytics
     Analytics.pageView();
 
