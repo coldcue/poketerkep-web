@@ -110,8 +110,7 @@ describe('Unit: GameDTO - service', function () {
                 'encounter_id': 'MTcxMzQyMDUzNjgxNzI5MjkxNDk=',
                 'latitude': 47.4263831387732,
                 'longitude': 19.040191820673552,
-                'pokemon_id': 133,
-                'pokemon_name': 'Eevee'
+                'pokemon_id': 133
             }],
             pokestops: [{
                 'latitude': 47.44382,
@@ -157,6 +156,25 @@ describe('Unit: GameDTO - service', function () {
 
         expect(StorageService.set).toHaveBeenCalled();
         expect(GameDTO.getSelectedPokemons()).toEqual(fakeSelectedPokemons);
+    });
+
+    it('should have working getSelectedPokemonIds which returns int array', function () {
+        expect(GameDTO.getSelectedPokemonIds).toBeDefined();
+
+        var fakeSelectedPokemons = [
+            {
+                id: 1,
+                name: 'pokemon1'
+            },
+            {
+                id: 123,
+                name: 'pokemon123'
+            }
+        ];
+
+        GameDTO.setSelectedPokemons(fakeSelectedPokemons);
+
+        expect(GameDTO.getSelectedPokemonIds()).toEqual([1, 123]);
     });
 
 });

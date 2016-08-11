@@ -96,6 +96,19 @@ function GameDTO(GameUtilsService, StorageService) {
     };
 
     /**
+     * Get selectedPokemonIds as int array list
+     */
+    _this.getSelectedPokemonIds = function() {
+        var array = [];
+
+        for(var i = 0; i < _this.selectedPokemons.length; i++) {
+            array.push(_this.selectedPokemons[i].id);
+        }
+
+        return array;
+    };
+
+    /**
      * Set selectedPokemons object
      * @param selectedPokemons - selectedPokemons object
      */

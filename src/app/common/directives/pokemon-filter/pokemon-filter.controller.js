@@ -35,7 +35,7 @@ function PokemonFilterController(POKEMONS, Utils, $scope) {
      */
     function searchPokemons(term) {
         if(angular.isUndefinedOrNull(term) || term.length === 0) {
-            return POKEMONS.sort(Utils.sortPokemons);
+            return POKEMONS.sort(Utils.compareByName);
         }
 
         var filteredArray = [];
@@ -46,7 +46,7 @@ function PokemonFilterController(POKEMONS, Utils, $scope) {
             }
         });
 
-        return filteredArray.sort(Utils.sortPokemons);
+        return filteredArray.sort(Utils.compareByName);
     }
 
     /**

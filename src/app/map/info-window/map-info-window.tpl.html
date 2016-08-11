@@ -7,7 +7,7 @@
             <!-- Gym info window part -->
             <div ng-if="parameter.model.type === parameter.GAME_ITEM_TYPES.gym">
                 <p>
-                    <strong>Edzőterem</strong>
+                    <strong>{{parameter.GAME_ITEM_TYPES.gym}}</strong>
                     <i> - {{parameter.model.data.team_info.name}}</i>
                 </p>
                 <p>
@@ -17,7 +17,7 @@
             <!-- Pokemon info window part -->
             <div ng-if="parameter.model.type === parameter.GAME_ITEM_TYPES.pokemon">
                 <p>
-                    <strong>{{parameter.model.data.pokemon_name}}</strong>
+                    <strong>{{parameter.GameUtilsService.getPokemonName(parameter.model.data.pokemon_id)}}</strong>
                     <a ng-href="http://www.pokemon.com/us/pokedex/{{parameter.model.data.pokemon_id}}"
                        target="_blank">#{{parameter.model.data.pokemon_id}}</a>
                 </p>
@@ -30,8 +30,8 @@
             <!-- Pokestop info window part -->
             <div ng-if="parameter.model.type === parameter.GAME_ITEM_TYPES.pokestop">
                 <p>
-                    <strong>Pokéstop</strong>
-                    <i ng-if="parameter.model.data.lure_expiration"> (Aktív csalival)</i>
+                    <strong>{{parameter.GAME_ITEM_TYPES.pokestop}}</strong>
+                    <i ng-if="parameter.model.data.lure_expiration"> (Aktív Lure)</i>
                 </p>
                 <p ng-if="parameter.model.data.lure_expiration">
                     <i class="fa fa-clock-o" aria-hidden="true"></i>

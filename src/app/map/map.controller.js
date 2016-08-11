@@ -8,7 +8,7 @@ angular
  * Controller for full map
  */
 /*@ngInject*/
-function MapController(ENV, GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, $rootScope) {
+function MapController(ENV, GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, GameUtilsService, $rootScope) {
 
     // controllerAs with vm
     var vm = this;
@@ -24,6 +24,7 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, $
     // ViewModel functions
     vm.getGameData = getGameData;
     vm.setMapData = setMapData;
+    vm.GameUtilsService = GameUtilsService;
 
     /**
      * Constructor, initialize
@@ -52,7 +53,7 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, $
 
             var params = {
                 bounds: MapDTO.getBounds(),
-                selectedPokemons: GameDTO.getSelectedPokemons()
+                selectedPokemons: GameDTO.getSelectedPokemonIds()
             };
 
             angular.extend(params, GameDTO.getFilterStates());
@@ -69,7 +70,7 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, $
      */
     function setMapData() {
         var gameData = GameDTO.getGame();
-        
+
         vm.gyms = gameData.gyms;
         vm.pokemons = gameData.pokemons;
         vm.pokestops = gameData.pokestops;
