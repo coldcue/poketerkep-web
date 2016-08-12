@@ -8,7 +8,7 @@ angular
  * Data model for game
  */
 /*@ngInject*/
-function GameMockDataModel() {
+function GameMockDataModel(FILTER_STATES) {
 
     // Data model
     this.data = {
@@ -323,9 +323,9 @@ function GameMockDataModel() {
 
         // No mock for bounds and selected pokemons
         return {
-            gyms: (filters.gyms ? data.gyms : []),
-            pokemons: (filters.pokemons ? data.pokemons : []),
-            pokestops: (filters.pokestops ? data.pokestops : [])
+            gyms: (filters.gyms === FILTER_STATES.show ? data.gyms : []),
+            pokemons: (filters.pokemons === FILTER_STATES.show ? data.pokemons : []),
+            pokestops: (filters.pokestops === FILTER_STATES.show ? data.pokestops : [])
         };
     };
 
