@@ -8,7 +8,7 @@ angular
  * Game DTO
  */
 /*@ngInject*/
-function GameDTO(GameUtilsService, StorageService) {
+function GameDTO(GameUtilsService, StorageService, Utils) {
 
     var _this = this;
 
@@ -29,15 +29,15 @@ function GameDTO(GameUtilsService, StorageService) {
     /**
      * Init GameDTO global variables
      */
-    _this.init = function() {
+    _this.init = function () {
         var storageFilterStates = StorageService.get('filterStates');
         var storageSelectedPokemons = StorageService.get('selectedPokemons');
 
-        if(!angular.isUndefinedOrNull(storageFilterStates)) {
+        if (!angular.isUndefinedOrNull(storageFilterStates)) {
             _this.filterStates = storageFilterStates;
         }
 
-        if(!angular.isUndefinedOrNull(storageSelectedPokemons)) {
+        if (!angular.isUndefinedOrNull(storageSelectedPokemons)) {
             _this.selectedPokemons = storageSelectedPokemons;
         }
 
@@ -47,7 +47,7 @@ function GameDTO(GameUtilsService, StorageService) {
     /**
      * Get game object
      */
-    _this.getGame = function() {
+    _this.getGame = function () {
         return _this.game;
     };
 
@@ -55,7 +55,7 @@ function GameDTO(GameUtilsService, StorageService) {
      * Set game object
      * @param data - Game data object
      */
-    _this.setGame = function(data) {
+    _this.setGame = function (data) {
         _this.game = data;
         return true;
     };
@@ -64,7 +64,7 @@ function GameDTO(GameUtilsService, StorageService) {
      * Set raw game object and convert it to internal format
      * @param data - RAW Game data object
      */
-    _this.setRAWGame = function(data) {
+    _this.setRAWGame = function (data) {
         _this.game.gyms = GameUtilsService.convertGymsData(data.gyms);
         _this.game.pokemons = GameUtilsService.convertPokemonsData(data.pokemons);
         _this.game.pokestops = GameUtilsService.convertPokestopsData(data.pokestops);
@@ -74,15 +74,27 @@ function GameDTO(GameUtilsService, StorageService) {
     /**
      * Get filterStates object
      */
-    _this.getFilterStates = function() {
+    _this.getFilterStates = function () {
         return _this.filterStates;
+    };
+
+    /**
+     * Get filterStates for API call
+     */
+    _this.getFilterStatesForAPI = function () {
+        return {
+            pokemons: (_this.filterStates.pokemons),
+            gyms: (_this.filterStates.gyms),
+            pokestops: (_this.filterStates.pokestops),
+            showOrHide: (_this.filterStates.showOrHide)
+        };
     };
 
     /**
      * Set filterStates object
      * @param filterStates - filterStates object
      */
-    _this.setFilterStates = function(filterStates) {
+    _this.setFilterStates = function (filterStates) {
         _this.filterStates = filterStates;
         StorageService.set('filterStates', filterStates);
         return true;
@@ -91,17 +103,17 @@ function GameDTO(GameUtilsService, StorageService) {
     /**
      * Get selectedPokemons object
      */
-    _this.getSelectedPokemons = function() {
+    _this.getSelectedPokemons = function () {
         return _this.selectedPokemons;
     };
 
     /**
      * Get selectedPokemonIds as int array list
      */
-    _this.getSelectedPokemonIds = function() {
+    _this.getSelectedPokemonIds = function () {
         var array = [];
 
-        for(var i = 0; i < _this.selectedPokemons.length; i++) {
+        for (var i = 0; i < _this.selectedPokemons.length; i++) {
             array.push(_this.selectedPokemons[i].id);
         }
 
@@ -109,10 +121,17 @@ function GameDTO(GameUtilsService, StorageService) {
     };
 
     /**
+     * Get selectedPokemons for API call
+     */
+    _this.getSelectedPokemonsForAPI = function () {
+        return Utils.encodePokemonIdsToBase64(_this.getSelectedPokemonIds());
+    };
+
+    /**
      * Set selectedPokemons object
      * @param selectedPokemons - selectedPokemons object
      */
-    _this.setSelectedPokemons = function(selectedPokemons) {
+    _this.setSelectedPokemons = function (selectedPokemons) {
         _this.selectedPokemons = selectedPokemons;
         StorageService.set('selectedPokemons', selectedPokemons);
         return true;

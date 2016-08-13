@@ -44,7 +44,7 @@ describe('Unit: Map - controller', function () {
     it('should have working getGameData method to load game data from backend', function () {
         expect(MapController.getGameData).toBeDefined();
 
-        $httpBackend.expectPOST(/game/).respond(200, {});
+        $httpBackend.expectGET(/game/).respond(200, {});
         $httpBackend.expectGET(/header/).respond();
         $httpBackend.expectGET(/map/).respond();
 

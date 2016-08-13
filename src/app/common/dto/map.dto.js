@@ -34,10 +34,10 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
                     var bounds = map.getBounds();
 
                     _this.bounds = {
-                        neLat: bounds.getNorthEast().lat(),
-                        neLng: bounds.getNorthEast().lng(),
-                        swLat: bounds.getSouthWest().lat(),
-                        swLng: bounds.getSouthWest().lng()
+                        neLat: Number(bounds.getNorthEast().lat().toFixed(8)),
+                        neLng: Number(bounds.getNorthEast().lng().toFixed(8)),
+                        swLat: Number(bounds.getSouthWest().lat().toFixed(8)),
+                        swLng: Number(bounds.getSouthWest().lng().toFixed(8))
                     };
 
                     getGameData();

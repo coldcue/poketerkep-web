@@ -52,11 +52,11 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, G
             }
 
             var params = {
-                bounds: MapDTO.getBounds(),
-                selectedPokemons: GameDTO.getSelectedPokemonIds()
+                selectedPokemons: GameDTO.getSelectedPokemonsForAPI()
             };
 
-            angular.extend(params, GameDTO.getFilterStates());
+            angular.extend(params, MapDTO.getBounds());
+            angular.extend(params, GameDTO.getFilterStatesForAPI());
 
             vm.request = GameDataService.get(params, function (data) {
                 GameDTO.setRAWGame(data);

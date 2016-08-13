@@ -294,7 +294,7 @@ function GameMockDataModel() {
     /**
      * Getter
      */
-    this.getData = function() {
+    this.getData = function () {
         return this.data;
     };
 
@@ -302,14 +302,14 @@ function GameMockDataModel() {
      * Setter
      * @param data - Data model
      */
-    this.setData = function(data) {
+    this.setData = function (data) {
         this.data = data;
     };
 
     /**
      * Get all elems from model
      */
-    this.findAll = function() {
+    this.findAll = function () {
         return this.getData();
     };
 
@@ -317,15 +317,15 @@ function GameMockDataModel() {
      * Get filtered model
      * @param filters - Filters object
      */
-    this.getFiltered = function(filters) {
+    this.getFiltered = function (filters) {
         var data = this.getData();
         filters = JSON.parse(filters);
 
         // No mock for bounds and selected pokemons
         return {
-            gyms: (filters.gyms ? data.gyms : []),
-            pokemons: (filters.pokemons ? data.pokemons : []),
-            pokestops: (filters.pokestops ? data.pokestops : [])
+            gyms: (filters.gyms === true ? data.gyms : []),
+            pokemons: (filters.pokemons === true ? data.pokemons : []),
+            pokestops: (filters.pokestops === true ? data.pokestops : [])
         };
     };
 

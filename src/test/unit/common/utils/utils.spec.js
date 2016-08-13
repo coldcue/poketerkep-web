@@ -37,4 +37,11 @@ describe('Unit: Utils', function () {
         expect(Utils.compareByName(object1, object1)).toEqual(0);
     });
 
+    it('should encode Pokemon Ids To Base64', function () {
+        var input = [0, 1, 3, 5, 31, 32, 33, 67, 87, 161, 23, 55, 66, 88, 98, 400, 543, 654, 721, 722];
+        var expected = 'KwCAgAMAgAAMAIABBAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAQAAAAAAAAAAABg==';
+
+        expect(Utils.encodePokemonIdsToBase64(input)).toMatch(expected);
+    });
+
 });

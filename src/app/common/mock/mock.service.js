@@ -8,7 +8,7 @@ angular
  * Backend mock endpoints
  */
 /*@ngInject*/
-function MockService($httpBackend, GameMockDataModel) {
+function MockService($httpBackend, GameMockDataModel, Utils) {
 
     return {
         passThrough: passThrough,
@@ -20,7 +20,7 @@ function MockService($httpBackend, GameMockDataModel) {
      */
     function passThrough() {
         $httpBackend.whenGET(/views\//).passThrough();
-        $httpBackend.whenPOST(/game/).passThrough();
+        $httpBackend.whenGET(/game/).passThrough();
     }
 
     /**
@@ -28,8 +28,8 @@ function MockService($httpBackend, GameMockDataModel) {
      */
     /* istanbul ignore next */
     function gameMock() {
-        $httpBackend.whenPOST(/game/).respond(function(method, url, data) {
-            return [200, GameMockDataModel.getFiltered(data), {}];
+        $httpBackend.whenGET(/game/).respond(function(method, url) {
+            return [200, GameMockDataModel.getFiltered(Utils.queryStringToJSON(url)), {}];
         });
     }
 
