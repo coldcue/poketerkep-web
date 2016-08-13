@@ -8,7 +8,7 @@ angular
  * Game DTO
  */
 /*@ngInject*/
-function GameDTO(GameUtilsService, StorageService) {
+function GameDTO(GameUtilsService, StorageService, FILTER_STATES, Utils) {
 
     var _this = this;
 
@@ -79,6 +79,18 @@ function GameDTO(GameUtilsService, StorageService) {
     };
 
     /**
+     * Get filterStates for API call
+     */
+    _this.getFilterStatesForAPI = function() {
+        return {
+            pokemons: (_this.filterStates.pokemons ? FILTER_STATES.show : FILTER_STATES.hide),
+            gyms: (_this.filterStates.gyms ? FILTER_STATES.show : FILTER_STATES.hide),
+            pokestops: (_this.filterStates.pokestops ? FILTER_STATES.show : FILTER_STATES.hide),
+            showOrHide: (_this.filterStates.showOrHide ? FILTER_STATES.show : FILTER_STATES.hide)
+        };
+    };
+
+    /**
      * Set filterStates object
      * @param filterStates - filterStates object
      */
@@ -106,6 +118,14 @@ function GameDTO(GameUtilsService, StorageService) {
         }
 
         return array;
+    };
+
+    /**
+     * Get selectedPokemons for API call
+     */
+    _this.getSelectedPokemonsForAPI = function() {
+        var segments = Utils.encodeIntArrayToBase64Segments(_this.getSelectedPokemonIds());
+        return encodeURI(segments.join());
     };
 
     /**
