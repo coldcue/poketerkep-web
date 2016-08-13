@@ -8,7 +8,7 @@ angular
  * Data model for game
  */
 /*@ngInject*/
-function GameMockDataModel(FILTER_STATES) {
+function GameMockDataModel() {
 
     // Data model
     this.data = {
@@ -294,7 +294,7 @@ function GameMockDataModel(FILTER_STATES) {
     /**
      * Getter
      */
-    this.getData = function() {
+    this.getData = function () {
         return this.data;
     };
 
@@ -302,14 +302,14 @@ function GameMockDataModel(FILTER_STATES) {
      * Setter
      * @param data - Data model
      */
-    this.setData = function(data) {
+    this.setData = function (data) {
         this.data = data;
     };
 
     /**
      * Get all elems from model
      */
-    this.findAll = function() {
+    this.findAll = function () {
         return this.getData();
     };
 
@@ -317,15 +317,15 @@ function GameMockDataModel(FILTER_STATES) {
      * Get filtered model
      * @param filters - Filters object
      */
-    this.getFiltered = function(filters) {
+    this.getFiltered = function (filters) {
         var data = this.getData();
         filters = JSON.parse(filters);
 
         // No mock for bounds and selected pokemons
         return {
-            gyms: (filters.gyms === FILTER_STATES.show ? data.gyms : []),
-            pokemons: (filters.pokemons === FILTER_STATES.show ? data.pokemons : []),
-            pokestops: (filters.pokestops === FILTER_STATES.show ? data.pokestops : [])
+            gyms: (filters.gyms === true ? data.gyms : []),
+            pokemons: (filters.pokemons === true ? data.pokemons : []),
+            pokestops: (filters.pokestops === true ? data.pokestops : [])
         };
     };
 

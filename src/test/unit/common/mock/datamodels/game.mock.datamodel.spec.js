@@ -55,7 +55,7 @@ describe('Unit: GameMock - datamodel', function () {
             ]
         };
 
-        var fakeFilters = '{"gyms":"hide","pokemons":"show","pokestops":"hide"}';
+        var fakeFilters = '{"gyms":false,"pokemons":true,"pokestops":false}';
 
         GameMockDataModel.setData(fakeData);
 
@@ -65,7 +65,7 @@ describe('Unit: GameMock - datamodel', function () {
 
         expect(GameMockDataModel.getFiltered(fakeFilters)).toEqual(fakeData);
 
-        fakeFilters = '{"gyms":"show","pokemons":"hide","pokestops":"show"}';
+        fakeFilters = '{"gyms":true,"pokemons":false,"pokestops":true}';
 
         GameMockDataModel.setData(originalData);
 
