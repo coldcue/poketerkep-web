@@ -7,9 +7,14 @@ describe('Unit: MapDTO - service', function () {
 
     // Mock coordinates
     var mockCoordinates = {
-        latitude: 42.55,
-        longitude: 16.32
+        latitude: 42.554423,
+        longitude: 16.324324
     };
+    var mockCoordinates2 = {
+        latitude: 42.554435,
+        longitude: 16.324364
+    };
+
 
     // Mock StorageService
     var mockStorageService = {
@@ -122,6 +127,19 @@ describe('Unit: MapDTO - service', function () {
         expect(MapDTO.getBounds().swLat).toEqual(20);
         expect(MapDTO.getBounds().swLng).toEqual(10);
 
+        MapDTO.enablePositionTracking();
+
+        map.mapEvents.zoom_changed();
+
+        expect(MapDTO.trackingEnabled).toBe(false);
+        expect(MapDTO.zoomChangedProgramatically).toBe(false);
+
+        MapDTO.zoomChangedProgramatically = true;
+
+        map.mapEvents.zoom_changed();
+
+        expect(MapDTO.zoomChangedProgramatically).toBe(false);
+
         var fakeModel = 'fakeModel';
 
         expect(map.window.model).toBe(null);
@@ -146,8 +164,6 @@ describe('Unit: MapDTO - service', function () {
     });
 
     it('should have working getter/setter method for playerPosition object', function () {
-        spyOn(MapDTO, 'setMapCenterByPlayer');
-
         expect(MapDTO.getPlayerPosition).toBeDefined();
         expect(MapDTO.setPlayerPosition).toBeDefined();
 
@@ -156,12 +172,10 @@ describe('Unit: MapDTO - service', function () {
         MapDTO.setPlayerPosition();
 
         expect(MapDTO.getPlayerPosition()).toEqual([]);
-        expect(MapDTO.setMapCenterByPlayer).not.toHaveBeenCalled();
 
         MapDTO.setPlayerPosition(mockCoordinates);
 
         expect(MapDTO.getPlayerPosition()[0].coords).toEqual(mockCoordinates);
-        expect(MapDTO.setMapCenterByPlayer).toHaveBeenCalled();
     });
 
     it('should have working getter method for getBounds object', function () {
@@ -191,6 +205,7 @@ describe('Unit: MapDTO - service', function () {
 
         spyOn(StorageService, 'set');
         spyOn(MapDTO, 'setPlayerPosition');
+        spyOn(MapDTO, 'setMapCenterByPlayer');
 
         expect(MapDTO.detectPlayerPosition).toBeDefined();
 
@@ -212,6 +227,7 @@ describe('Unit: MapDTO - service', function () {
 
         expect(StorageService.set).not.toHaveBeenCalled();
         expect(MapDTO.setPlayerPosition.calls.count()).toEqual(1);
+        expect(MapDTO.setMapCenterByPlayer.calls.count()).toEqual(1);
 
         // If there is valid position
         $window = originalWindow;
@@ -231,10 +247,36 @@ describe('Unit: MapDTO - service', function () {
 
         expect(StorageService.set).toHaveBeenCalled();
         expect(MapDTO.setPlayerPosition.calls.count()).toEqual(3);
+        expect(MapDTO.setMapCenterByPlayer.calls.count()).toEqual(3);
+
+        // If there was only a minimal movementv
+        $window = originalWindow;
+        angular.extend($window, {
+            navigator: {
+                geolocation: {
+                    watchPosition: function(success) {
+                        return success({
+                            coords: mockCoordinates2
+                        });
+                    }
+                }
+            }
+        });
+
+        MapDTO.playerPosition = [
+            {
+                coords: mockCoordinates
+            }
+        ];
+
+        MapDTO.detectPlayerPosition();
+
+        expect(MapDTO.setPlayerPosition.calls.count()).toEqual(5);
+        expect(MapDTO.setMapCenterByPlayer.calls.count()).toEqual(4);
 
     });
 
-    it('should have setMapCenterByPlayer method be defined', function () {
+    it('should have working setMapCenterByPlayer method', function () {
         MapDTO.init(function () {});
         var map = MapDTO.getMap();
 
@@ -247,6 +289,8 @@ describe('Unit: MapDTO - service', function () {
                 longitude: 0
             }
         };
+
+        MapDTO.map.zoom = 14;
 
         var deferred = $q.defer();
 
@@ -283,8 +327,31 @@ describe('Unit: MapDTO - service', function () {
         $rootScope.$apply();
 
         expect(panToSpy).toHaveBeenCalled();
+        expect(MapDTO.map.zoom).toEqual(14);
+
+        // if tracking enabled but zoom was < 14
+        MapDTO.map.zoom = 13;
+        MapDTO.setMapCenterByPlayer();
+
+        deferred.resolve([{
+            map: {
+                panTo: function() { panToSpy(); }
+            }
+        }]);
+
+        $rootScope.$apply();
+
+        expect(panToSpy).toHaveBeenCalled();
+        expect(MapDTO.map.zoom).toEqual(ENV.mapDefaults.zoom);
 
         $httpBackend.flush();
+    });
+
+    it('should have working comparePositions method', function () {
+        expect(MapDTO.comparePositions()).toBe(false);
+        expect(MapDTO.comparePositions(null, null)).toBe(false);
+        expect(MapDTO.comparePositions(mockCoordinates, mockCoordinates2, 4)).toBe(true);
+        expect(MapDTO.comparePositions(mockCoordinates, mockCoordinates2, 5)).toBe(false);
     });
 
 });

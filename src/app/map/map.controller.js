@@ -56,7 +56,7 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, G
             };
 
             angular.extend(params, MapDTO.getBounds());
-            angular.extend(params, GameDTO.getFilterStatesForAPI());
+            angular.extend(params, GameDTO.getFilterStates());
 
             vm.request = GameDataService.get(params, function (data) {
                 GameDTO.setRAWGame(data);

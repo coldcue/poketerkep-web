@@ -8,7 +8,7 @@ angular
  * Map DTO
  */
 /*@ngInject*/
-function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsReady) {
+function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsReady, Utils) {
 
     var _this = this;
 
@@ -17,6 +17,7 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
     _this.bounds = {};
     _this.trackingEnabled = true;
     _this.playerPosition = [];
+    _this.zoomChangedProgramatically = false;
 
     /**
      * Init MapDTO defaults
@@ -42,6 +43,13 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
 
                     getGameData();
                     IntervalService.restartInterval(getGameData);
+                },
+                'zoom_changed': function() {
+                    if(!_this.zoomChangedProgramatically) {
+                        _this.trackingEnabled = false;
+                    }
+
+                    _this.zoomChangedProgramatically = false;
                 }
             },
             mapOptions: {
@@ -104,10 +112,13 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
         if (angular.isDefined($window.navigator.geolocation)) {
             // Set player last position based on local storage
             _this.setPlayerPosition(StorageService.get('playerPosition'));
+            _this.setMapCenterByPlayer();
 
             // Get fresh player position
             $window.navigator.geolocation.watchPosition(
                 function (position) {
+                    var oldPosition = angular.copy(_this.getPlayerPosition());
+
                     var playerPosition = {
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude
@@ -115,12 +126,22 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
 
                     StorageService.set('playerPosition', playerPosition);
                     _this.setPlayerPosition(playerPosition);
+
+                    // If player moved not so much (less than ~20-30 meters) map center reset is not required
+                    if(!angular.isUndefinedOrNull(oldPosition) && oldPosition.length === 1 &&
+                        !angular.isUndefinedOrNull(oldPosition[0].coords) &&
+                        _this.comparePositions(oldPosition[0].coords, playerPosition, 4)) {
+                        return;
+                    }
+
+                    _this.setMapCenterByPlayer();
                 },
                 function (error) {
                     $log.warn('Unable to get player position: ' + error.message);
                 },
                 {
-                    enableHighAccuracy: true
+                    enableHighAccuracy: true,
+                    maximumAge: 1000 * 10 // GPS cache (10 seconds)
                 }
             );
         }
@@ -142,8 +163,6 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
                     scaledSize: {width: 40, height: 40}
                 }
             }]);
-
-            _this.setMapCenterByPlayer();
         }
     };
 
@@ -161,7 +180,10 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
                     lng: _this.playerPosition[0].coords.longitude
                 });
 
-                _this.map.zoom = ENV.mapDefaults.zoom + 2;
+                if(_this.map.zoom < 14) {
+                    _this.zoomChangedProgramatically = true;
+                    _this.map.zoom = ENV.mapDefaults.zoom;
+                }
             });
         }
     };
@@ -172,6 +194,23 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
     _this.enablePositionTracking = function() {
         _this.trackingEnabled = true;
         _this.setMapCenterByPlayer();
+    };
+
+    /**
+     * Compare to positions with specified precision, return true if they are the same
+     * @param position1 - First position
+     * @param position2 - Second position
+     * @param precision - Precision number (decimal places)
+     */
+    _this.comparePositions = function(position1, position2, precision) {
+        if(!angular.isUndefinedOrNull(position1) && !angular.isUndefinedOrNull(position2)) {
+            return (Utils.parseNumberWithoutRounding(position1.latitude, precision) ===
+                Utils.parseNumberWithoutRounding(position2.latitude, precision)) &&
+                (Utils.parseNumberWithoutRounding(position1.longitude, precision) ===
+                Utils.parseNumberWithoutRounding(position2.longitude, precision));
+        }
+
+        return false;
     };
 
 }

@@ -79,18 +79,6 @@ function GameDTO(GameUtilsService, StorageService, Utils) {
     };
 
     /**
-     * Get filterStates for API call
-     */
-    _this.getFilterStatesForAPI = function () {
-        return {
-            pokemons: (_this.filterStates.pokemons),
-            gyms: (_this.filterStates.gyms),
-            pokestops: (_this.filterStates.pokestops),
-            showOrHide: (_this.filterStates.showOrHide)
-        };
-    };
-
-    /**
      * Set filterStates object
      * @param filterStates - filterStates object
      */
