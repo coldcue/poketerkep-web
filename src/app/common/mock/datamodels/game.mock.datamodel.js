@@ -323,9 +323,9 @@ function GameMockDataModel() {
 
         // No mock for bounds and selected pokemons
         return {
-            gyms: (filters.gyms === true ? data.gyms : []),
-            pokemons: (filters.pokemons === true ? data.pokemons : []),
-            pokestops: (filters.pokestops === true ? data.pokestops : [])
+            gyms: (filters.gyms ? data.gyms : []),
+            pokemons: (filters.pokemons ? data.pokemons : []),
+            pokestops: (filters.pokestops ? data.pokestops : [])
         };
     };
 

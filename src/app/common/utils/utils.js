@@ -10,10 +10,12 @@ angular
 /*@ngInject*/
 function Utils() {
 
-    return {
+    var utils = {
         compareByName: compareByName,
         encodePokemonIdsToBase64: encodePokemonIdsToBase64,
-        queryStringToJSON: queryStringToJSON
+        queryStringToJSON: queryStringToJSON,
+        base64ArrayBuffer: base64ArrayBuffer,
+        parseNumberWithoutRounding: parseNumberWithoutRounding
     };
 
     /**
@@ -62,7 +64,7 @@ function Utils() {
         }
 
         //Convert byte array to base64
-        return base64ArrayBuffer(bytes);
+        return utils.base64ArrayBuffer(bytes);
     }
 
     /**
@@ -71,11 +73,17 @@ function Utils() {
      */
     function queryStringToJSON(url) {
         var query = {};
-        var a = url.split('?')[1].split('&');
+        var a = url.split('?');
 
-        for (var i = 0; i < a.length; i++) {
-            var b = a[i].split('=');
-            query[decodeURIComponent(b[0])] = decodeURIComponent(b[1] || '');
+        if(a.length > 1) {
+            var b = a[1].split('&');
+
+            for (var i = 0; i < b.length; i++) {
+                var c = b[i].split('=');
+                var d = decodeURIComponent(c[1] || '');
+                query[decodeURIComponent(c[0])] =
+                    (Number(d) !== Number.NaN && Number(d).toString() === d ? Number(d) : d);
+            }
         }
 
         return query;
@@ -139,6 +147,21 @@ function Utils() {
         return base64;
         /* jshint ignore:end */
     }
+
+    /**
+     * Parse number with specified decimal places without rounding it
+     * @param n - number
+     * @param decimalPlaces - decimal places
+     */
+    function parseNumberWithoutRounding(n, decimalPlaces) {
+        if(angular.isUndefinedOrNull(decimalPlaces)) {
+            decimalPlaces = 0;
+        }
+
+        return Number(n.toString().match(new RegExp('^\\-?\\d+(?:\\.\\d{0,' + decimalPlaces + '})?')));
+    }
+
+    return utils;
 
 }
 
