@@ -3,16 +3,18 @@
 describe('Unit: Map - controller', function () {
 
     // Global variables
-    var MapController, GameDTO, GameDataService, $rootScope, $httpBackend, ENV;
+    var MapController, GameDTO, GameDataService, StorageService, UserAgentService, $rootScope, $httpBackend, ENV;
 
     // Include app
     beforeEach(angular.mock.module('angularApp'));
 
     // Include test related dependencies
-    beforeEach(angular.mock.inject(function(_$controller_, _GameDTO_, _GameDataService_, _$rootScope_, _$httpBackend_,
-    _ENV_) {
+    beforeEach(angular.mock.inject(function(_$controller_, _GameDTO_, _GameDataService_, _StorageService_,
+                                            _UserAgentService_, _$rootScope_, _$httpBackend_, _ENV_) {
         GameDTO = _GameDTO_;
         GameDataService = _GameDataService_;
+        StorageService = _StorageService_;
+        UserAgentService = _UserAgentService_;
         $rootScope = _$rootScope_;
         $httpBackend = _$httpBackend_;
         ENV = _ENV_;
@@ -97,6 +99,56 @@ describe('Unit: Map - controller', function () {
         expect(MapController.gyms).toEqual(fakeFilteredGame.gyms);
         expect(MapController.pokemons).toEqual(fakeFilteredGame.pokemons);
         expect(MapController.pokestops).toEqual(fakeFilteredGame.pokestops);
+    });
+
+    it('should have working showHomeScreenPopup method', function () {
+        expect(MapController.showHomeScreenPopup).toBeDefined();
+
+        // if user visits page first time
+        spyOn(StorageService, 'get').and.returnValue(undefined);
+        spyOn(StorageService, 'set');
+
+        MapController.showHomeScreenPopup();
+
+        expect(StorageService.set).toHaveBeenCalled();
+        expect(MapController.homeScreenPopup).toBe(false);
+
+        // if user visits from Android device
+        StorageService.get.and.returnValue('firstTime');
+        spyOn(UserAgentService, 'isAndroid').and.returnValue(true);
+
+        MapController.showHomeScreenPopup();
+
+        expect(UserAgentService.isAndroid).toHaveBeenCalled();
+        expect(MapController.homeScreenPopup).toBe('Android');
+
+        // if user visits from iOS device
+        UserAgentService.isAndroid.and.returnValue(false);
+        spyOn(UserAgentService, 'isMobileSafari').and.returnValue(true);
+
+        MapController.showHomeScreenPopup();
+
+        expect(UserAgentService.isMobileSafari).toHaveBeenCalled();
+        expect(MapController.homeScreenPopup).toBe('iOS');
+
+        // if user already closed home screen popup
+        StorageService.get.and.returnValue(false);
+        spyOn(MapController, 'hideHomeScreenPopup');
+
+        MapController.showHomeScreenPopup();
+
+        expect(MapController.hideHomeScreenPopup).toHaveBeenCalled();
+    });
+
+    it('should have working hideHomeScreenPopup method', function () {
+        expect(MapController.hideHomeScreenPopup).toBeDefined();
+
+        spyOn(StorageService, 'set');
+
+        MapController.hideHomeScreenPopup();
+
+        expect(MapController.homeScreenPopup).toBe(false);
+        expect(StorageService.set).toHaveBeenCalled();
     });
 
 });

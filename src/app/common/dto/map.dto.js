@@ -170,7 +170,7 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
      * Set map center position by player
      */
     _this.setMapCenterByPlayer = function() {
-        if (_this.trackingEnabled) {
+        if (_this.trackingEnabled && _this.playerPosition.length === 1) {
             uiGmapIsReady.promise().then(function (maps) {
                 var map = maps[0].map;
 

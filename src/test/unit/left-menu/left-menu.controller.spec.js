@@ -3,7 +3,7 @@
 describe('Unit: LeftMenu - controller', function () {
 
     // Global variables
-    var LeftMenuController, GameDTO, $rootScope, $window, $timeout, $httpBackend;
+    var LeftMenuController, GameDTO, $rootScope, $window, $timeout, $httpBackend, originalWindow;
 
     // Include app
     beforeEach(angular.mock.module('angularApp'));
@@ -14,6 +14,7 @@ describe('Unit: LeftMenu - controller', function () {
         GameDTO = _GameDTO_;
         $rootScope = _$rootScope_;
         $window = _$window_;
+        originalWindow = $window;
         $timeout = _$timeout_;
         $httpBackend = _$httpBackend_;
 
@@ -33,17 +34,38 @@ describe('Unit: LeftMenu - controller', function () {
         expect(LeftMenuController.selectedPokemons).toBeDefined();
     });
 
+    it('should have facebookInit method which not calls FB api if window.FB is not initialized', function () {
+        var fbSpy = jasmine.createSpy('FB');
+
+        $httpBackend.expectGET(/header/).respond(200);
+        $httpBackend.expectGET(/map/).respond(200);
+
+        $window = originalWindow;
+        angular.extend($window, {
+            FB: undefined
+        });
+
+        LeftMenuController.facebookInit();
+
+        $httpBackend.flush();
+
+        expect(fbSpy).not.toHaveBeenCalled();
+    });
+
     it('should have facebookInit method which calls FB api', function () {
         var fbSpy = jasmine.createSpy('FB');
 
         $httpBackend.expectGET(/header/).respond(200);
         $httpBackend.expectGET(/map/).respond(200);
 
-        $window.FB = {
-            XFBML: {
-                parse: fbSpy
+        $window = originalWindow;
+        angular.extend($window, {
+            FB: {
+                XFBML: {
+                    parse: fbSpy
+                }
             }
-        };
+        });
 
         LeftMenuController.facebookInit();
 
