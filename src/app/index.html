@@ -5,6 +5,7 @@
     <!-- BEGIN default meta data -->
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width" />
+    <meta http-equiv="Cache-control" content="Cache-Control: max-age=7200" />
     <title>PokéTérkép - Magyarország legnagyobb pokémon térképe</title>
     <meta name="description" content="Találd meg könnyedén Magyarország pokémonjait folyamatosan bővülő, valós idejű térképünkkel!" />
     <!-- END default meta data -->
@@ -31,14 +32,14 @@
     <!-- END open graph meta -->
     <!-- inject:css -->
     <!-- endinject -->
-    <!-- libraries:js -->
-    <!-- endinject -->
 </head>
 <body>
 <div ui-view="header"></div>
 <div class="content" ui-view="content"></div>
 <loader></loader>
 <maintenance></maintenance>
+<!-- libraries:js -->
+<!-- endinject -->
 <!-- inject:js -->
 <!-- endinject -->
 </body>
