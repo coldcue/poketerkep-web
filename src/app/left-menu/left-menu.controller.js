@@ -8,14 +8,15 @@ angular
  * Controller for left menu
  */
 /*@ngInject*/
-function LeftMenuController(GameDTO, $rootScope, $window, $timeout) {
+function LeftMenuController(GameDTO, $rootScope, $window, $timeout, Analytics) {
 
     // controllerAs with vm
     var vm = this;
 
     // ViewModel bindings
     vm.facebookInit = facebookInit;
-    vm.setFilters = setFilters;
+    vm.changeFilters = changeFilters;
+    vm.changeSelectedPokemons = changeSelectedPokemons;
 
     /**
      * Constructor, initialize
@@ -40,10 +41,19 @@ function LeftMenuController(GameDTO, $rootScope, $window, $timeout) {
     /**
      * Set game filters in GameDTO
      */
-    function setFilters() {
+    function changeFilters() {
         GameDTO.setFilterStates(vm.filterStates);
+        $rootScope.$broadcast('updateGameData');
+        Analytics.trackEvent('Game', 'changeFilters', JSON.stringify(vm.filterStates));
+    }
+
+    /**
+     * Set game selected pokemons in GameDTO
+     */
+    function changeSelectedPokemons() {
         GameDTO.setSelectedPokemons(vm.selectedPokemons);
         $rootScope.$broadcast('updateGameData');
+        Analytics.trackEvent('Game', 'changeSelectedPokemons', JSON.stringify(vm.selectedPokemons));
     }
 
 }
