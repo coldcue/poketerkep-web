@@ -16,7 +16,7 @@ function Loader($timeout) {
         templateUrl: 'views/' + name + '.tpl.html',
         restrict: 'E',
         link: function (scope, element) {
-            var delay = 200;
+            var delay = 300;
             var timer = null;
 
             /* Code snippet from StackOverFlow
