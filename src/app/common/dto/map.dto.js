@@ -44,8 +44,8 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
                     getGameData();
                     IntervalService.restartInterval(getGameData);
                 },
-                'zoom_changed': function() {
-                    if(!_this.zoomChangedProgramatically) {
+                'zoom_changed': function () {
+                    if (!_this.zoomChangedProgramatically) {
                         _this.trackingEnabled = false;
                     }
 
@@ -54,7 +54,55 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
             },
             mapOptions: {
                 streetViewControl: false,
-                mapTypeControl: false
+                mapTypeControl: false,
+                clickableIcons: false,
+                styles: [
+                    {
+                        'featureType': 'landscape.man_made',
+                        'elementType': 'geometry.fill',
+                        'stylers': [{'color': '#a1f199'}]
+                    }, {
+                        'featureType': 'landscape.natural.landcover',
+                        'elementType': 'geometry.fill',
+                        'stylers': [{'color': '#37bda2'}]
+                    }, {
+                        'featureType': 'landscape.natural.terrain',
+                        'elementType': 'geometry.fill',
+                        'stylers': [{'color': '#37bda2'}]
+                    }, {
+                        'featureType': 'poi.attraction',
+                        'elementType': 'geometry.fill',
+                        'stylers': [{'visibility': 'on'}]
+                    }, {
+                        'featureType': 'poi.business',
+                        'elementType': 'geometry.fill',
+                        'stylers': [{'color': '#e4dfd9'}]
+                    }, {
+                        'featureType': 'poi.business',
+                        'elementType': 'labels.icon',
+                        'stylers': [{'visibility': 'off'}]
+                    }, {
+                        'featureType': 'poi.park',
+                        'elementType': 'geometry.fill',
+                        'stylers': [{'color': '#37bda2'}]
+                    }, {
+                        'featureType': 'road',
+                        'elementType': 'geometry.fill',
+                        'stylers': [{'color': '#84b09e'}]
+                    }, {
+                        'featureType': 'road',
+                        'elementType': 'geometry.stroke',
+                        'stylers': [{'color': '#fafeb8'}, {'weight': '1.25'}]
+                    }, {
+                        'featureType': 'road.highway',
+                        'elementType': 'labels.icon',
+                        'stylers': [{'visibility': 'off'}]
+                    }, {
+                        'featureType': 'water',
+                        'elementType': 'geometry.fill',
+                        'stylers': [{'color': '#5ddad6'}]
+                    }
+                ]
             },
             markerEvents: {
                 click: function (marker, eventName, model) {
@@ -80,28 +128,28 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
     /**
      * Get map object
      */
-    _this.getMap = function() {
+    _this.getMap = function () {
         return _this.map;
     };
 
     /**
      * Get player position object
      */
-    _this.getPlayerPosition = function() {
+    _this.getPlayerPosition = function () {
         return _this.playerPosition;
     };
 
     /**
      * Get bounds object
      */
-    _this.getBounds = function() {
+    _this.getBounds = function () {
         return _this.bounds;
     };
 
     /**
      * Check if tracking is enabled or not
      */
-    _this.isTrackingEnabled = function() {
+    _this.isTrackingEnabled = function () {
         return _this.trackingEnabled;
     };
 
@@ -128,7 +176,7 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
                     _this.setPlayerPosition(playerPosition);
 
                     // If player moved not so much (less than ~20-30 meters) map center reset is not required
-                    if(!angular.isUndefinedOrNull(oldPosition) && oldPosition.length === 1 &&
+                    if (!angular.isUndefinedOrNull(oldPosition) && oldPosition.length === 1 &&
                         !angular.isUndefinedOrNull(oldPosition[0].coords) &&
                         _this.comparePositions(oldPosition[0].coords, playerPosition, 4)) {
                         return;
@@ -151,7 +199,7 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
      * Set player position marker
      * @param coords - Position coords value pair
      */
-    _this.setPlayerPosition = function(coords) {
+    _this.setPlayerPosition = function (coords) {
         if (!angular.isUndefinedOrNull(coords) && !angular.isUndefinedOrNull(coords.latitude)) {
             // Recreate playerPosition array, because of triggering change watcher
             _this.playerPosition.length = 0;
@@ -169,7 +217,7 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
     /**
      * Set map center position by player
      */
-    _this.setMapCenterByPlayer = function() {
+    _this.setMapCenterByPlayer = function () {
         if (_this.trackingEnabled && _this.playerPosition.length === 1) {
             uiGmapIsReady.promise().then(function (maps) {
                 var map = maps[0].map;
@@ -180,7 +228,7 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
                     lng: _this.playerPosition[0].coords.longitude
                 });
 
-                if(_this.map.zoom < 14) {
+                if (_this.map.zoom < 14) {
                     _this.zoomChangedProgramatically = true;
                     _this.map.zoom = ENV.mapDefaults.zoom;
                 }
@@ -191,7 +239,7 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
     /**
      * Enable position tracking
      */
-    _this.enablePositionTracking = function() {
+    _this.enablePositionTracking = function () {
         _this.trackingEnabled = true;
         _this.setMapCenterByPlayer();
     };
@@ -202,8 +250,8 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
      * @param position2 - Second position
      * @param precision - Precision number (decimal places)
      */
-    _this.comparePositions = function(position1, position2, precision) {
-        if(!angular.isUndefinedOrNull(position1) && !angular.isUndefinedOrNull(position2)) {
+    _this.comparePositions = function (position1, position2, precision) {
+        if (!angular.isUndefinedOrNull(position1) && !angular.isUndefinedOrNull(position2)) {
             return (Utils.parseNumberWithoutRounding(position1.latitude, precision) ===
                 Utils.parseNumberWithoutRounding(position2.latitude, precision)) &&
                 (Utils.parseNumberWithoutRounding(position1.longitude, precision) ===

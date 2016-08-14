@@ -26,8 +26,8 @@ function MainConfig($urlRouterProvider, $httpProvider, $logProvider, ENV, uiGmap
     // Angular google maps configure
     uiGmapGoogleMapApiProvider.configure({
         key: ENV.google.apiKey,
-        v: '3.23',
-        language: 'en-US',
+        v: '3.24',
+        language: 'hu-HU',
         libraries: 'geometry,visualization'
     });
 
