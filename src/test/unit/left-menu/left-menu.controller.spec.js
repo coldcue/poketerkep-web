@@ -75,16 +75,26 @@ describe('Unit: LeftMenu - controller', function () {
         expect(fbSpy).toHaveBeenCalled();
     });
 
-    it('should have setFilters method which modifies GameDTO filterStates and updates game data', function () {
-        expect(LeftMenuController.setFilters).toBeDefined();
+    it('should have changeFilters method which modifies filterStates and updates game data', function () {
+        expect(LeftMenuController.changeFilters).toBeDefined();
 
         spyOn(GameDTO, 'setFilterStates');
+        spyOn($rootScope, '$broadcast');
+
+        LeftMenuController.changeFilters();
+
+        expect(GameDTO.setFilterStates).toHaveBeenCalledWith(LeftMenuController.filterStates);
+        expect($rootScope.$broadcast).toHaveBeenCalledWith('updateGameData');
+    });
+
+    it('should have changeSelectedPokemons method which modifies selectedPokemons and updates game data', function () {
+        expect(LeftMenuController.changeSelectedPokemons).toBeDefined();
+
         spyOn(GameDTO, 'setSelectedPokemons');
         spyOn($rootScope, '$broadcast');
 
-        LeftMenuController.setFilters();
+        LeftMenuController.changeSelectedPokemons();
 
-        expect(GameDTO.setFilterStates).toHaveBeenCalledWith(LeftMenuController.filterStates);
         expect(GameDTO.setSelectedPokemons).toHaveBeenCalledWith(LeftMenuController.selectedPokemons);
         expect($rootScope.$broadcast).toHaveBeenCalledWith('updateGameData');
     });

@@ -8,7 +8,7 @@ angular
  * Map DTO
  */
 /*@ngInject*/
-function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsReady, Utils) {
+function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsReady, Utils, Analytics) {
 
     var _this = this;
 
@@ -18,6 +18,7 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
     _this.trackingEnabled = true;
     _this.playerPosition = [];
     _this.zoomChangedProgramatically = false;
+    _this.isFirstGPSData = true;
 
     /**
      * Init MapDTO defaults
@@ -172,6 +173,14 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
                         longitude: position.coords.longitude
                     };
 
+                    // Track user first position when opens application
+                    if(_this.isFirstGPSData) {
+                        Analytics.trackEvent('Map', 'getPlayerPosition',
+                            Utils.parseNumberWithoutRounding(playerPosition.latitude, 2) + ',' +
+                            Utils.parseNumberWithoutRounding(playerPosition.longitude, 2));
+                        _this.isFirstGPSData = false;
+                    }
+
                     StorageService.set('playerPosition', playerPosition);
                     _this.setPlayerPosition(playerPosition);
 
@@ -185,7 +194,10 @@ function MapDTO(ENV, StorageService, IntervalService, $window, $log, uiGmapIsRea
                     _this.setMapCenterByPlayer();
                 },
                 function (error) {
-                    $log.warn('Unable to get player position: ' + error.message);
+                    var err = 'Unable to get player position: ' + error.message;
+
+                    Analytics.trackException(err, false);
+                    $log.warn(err);
                 },
                 {
                     enableHighAccuracy: true,
