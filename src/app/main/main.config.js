@@ -26,13 +26,15 @@ function MainConfig($urlRouterProvider, $httpProvider, $logProvider, ENV, uiGmap
     // Angular google maps configure
     uiGmapGoogleMapApiProvider.configure({
         key: ENV.google.apiKey,
-        v: '3.23',
-        language: 'en-US',
-        libraries: 'geometry,visualization'
+        v: '3.24',
+        language: 'hu-HU'
     });
 
     // Google Analytics configure
-    AnalyticsProvider.setAccount(ENV.google.analyticsId);
+    AnalyticsProvider.setAccount({
+        tracker: ENV.google.analyticsId,
+        trackEvent: true
+    });
 
     // Facebook configure
     FacebookProvider.init(ENV.facebook.appId);

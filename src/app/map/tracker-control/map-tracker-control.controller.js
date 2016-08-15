@@ -8,7 +8,7 @@ angular
  * Controller for map tracker control
  */
 /*@ngInject*/
-function MapTrackerControlController($scope, MapDTO) {
+function MapTrackerControlController($scope, MapDTO, Analytics) {
 
     // Model bindings
     $scope.isTrackingEnabled = MapDTO.isTrackingEnabled;
@@ -19,6 +19,7 @@ function MapTrackerControlController($scope, MapDTO) {
      */
     function enablePositionTracking() {
         MapDTO.enablePositionTracking();
+        Analytics.trackEvent('Map', 'enablePositionTracking');
     }
 
 }

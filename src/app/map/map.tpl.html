@@ -44,4 +44,19 @@
                              controller="MapTrackerControlController"
                              position="bottom-right"></ui-gmap-map-control>
     </ui-gmap-google-map>
+
+    <!-- HomeScreen popups -->
+    <div class="homescreen-popup-backdrop" ng-show="vm.homeScreenPopup" ng-click="vm.hideHomeScreenPopup()"></div>
+    <div class="homescreen-popup" ng-show="vm.homeScreenPopup">
+        <i class="fa fa-times" aria-hidden="true" ng-click="vm.hideHomeScreenPopup()"></i>
+        <p><strong>Tudtad?</strong></p>
+        <p ng-show="vm.homeScreenPopup === 'Android'">
+            Tudtad? A PokéTérképet a kezdőképernyődről is elérheted ha a böngészőben a menü gombra, majd ott a
+            "Hozzáadás a kezdőképernyőhöz" gombra kattintasz!
+        </p>
+        <p ng-show="vm.homeScreenPopup === 'iOS'">
+            A PokéTérképet a kezdőképernyődről is elérheted ha Safariban a megosztás gombra, majd ott a "Hozzáadás a
+            kezdőképernyőhöz" gombra kattintasz!
+        </p>
+    </div>
 </div>

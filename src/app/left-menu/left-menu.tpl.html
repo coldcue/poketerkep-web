@@ -15,7 +15,7 @@
                                 <input type="checkbox"
                                        ng-model="vm.filterStates.pokemons"
                                        ng-checked="vm.filterStates.pokemons"
-                                       ng-change="vm.setFilters()" />
+                                       ng-change="vm.changeFilters()" />
                                 <div class="slider"></div>
                             </label>
                         </div>
@@ -27,7 +27,7 @@
                                 <input type="checkbox"
                                        ng-model="vm.filterStates.gyms"
                                        ng-checked="vm.filterStates.gyms"
-                                       ng-change="vm.setFilters()" />
+                                       ng-change="vm.changeFilters()" />
                                 <div class="slider"></div>
                             </label>
                         </div>
@@ -39,7 +39,7 @@
                                 <input type="checkbox"
                                        ng-model="vm.filterStates.pokestops"
                                        ng-checked="vm.filterStates.pokestops"
-                                       ng-change="vm.setFilters()" />
+                                       ng-change="vm.changeFilters()" />
                                 <div class="slider"></div>
                             </label>
                         </div>
@@ -54,12 +54,13 @@
                                 <input type="checkbox"
                                        ng-model="vm.filterStates.showOrHide"
                                        ng-checked="vm.filterStates.showOrHide"
-                                       ng-change="vm.setFilters()" />
+                                       ng-change="vm.changeFilters()" />
                                 <div class="slider"></div>
                             </label>
                         </div>
                     </div>
-                    <pokemon-filter ng-model="vm.selectedPokemons" ng-change="vm.setFilters()"></pokemon-filter>
+                    <pokemon-filter ng-model="vm.selectedPokemons"
+                                    ng-change="vm.changeSelectedPokemons()"></pokemon-filter>
                 </div>
             </div>
             <div class="aside-footer">

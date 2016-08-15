@@ -177,4 +177,8 @@ describe('Unit: GameDTO - service', function () {
         expect(GameDTO.getSelectedPokemonIds()).toEqual([1, 123]);
     });
 
+    it('should have getSelectedPokemonsForAPI method be defined', function () {
+        expect(GameDTO.getSelectedPokemonsForAPI).toBeDefined();
+    });
+
 });

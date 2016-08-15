@@ -10,6 +10,7 @@
                         data-animation="am-slide-left"
                         data-controller="LeftMenuController"
                         data-controller-as="vm"
+                        ng-click="vm.menuClick()"
                         bs-aside>
                     <i class="fa fa-bars" aria-hidden="true"></i>
                 </button>
@@ -23,6 +24,7 @@
                 <span class="label label-warning"
                       data-placement="bottom-right"
                       data-content="Térképünk jelenleg tesztüzemben működik. A szolgáltatásunkat folyamatosan fejlesztjük, ezért előfordulhat, hogy időnként nem jelenik meg semmi vagy csak bizonyos helyeken van adat."
+                      ng-click="vm.betaClick()"
                       bs-popover>
                     <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                     Béta
