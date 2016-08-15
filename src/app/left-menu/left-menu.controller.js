@@ -53,7 +53,7 @@ function LeftMenuController(GameDTO, $rootScope, $window, $timeout, Analytics) {
     function changeSelectedPokemons() {
         GameDTO.setSelectedPokemons(vm.selectedPokemons);
         $rootScope.$broadcast('updateGameData');
-        Analytics.trackEvent('Game', 'changeSelectedPokemons', JSON.stringify(vm.selectedPokemons));
+        Analytics.trackEvent('Game', 'changeSelectedPokemons', JSON.stringify(GameDTO.getSelectedPokemonIds()));
     }
 
 }
