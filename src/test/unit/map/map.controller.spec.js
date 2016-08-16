@@ -113,9 +113,18 @@ describe('Unit: Map - controller', function () {
         expect(StorageService.set).toHaveBeenCalled();
         expect(MapController.homeScreenPopup).toBe(false);
 
-        // if user visits from Android device
+        // if user visits first but maintenance mode is enabled
+        ENV.maintenance = true;
         StorageService.get.and.returnValue('firstTime');
         spyOn(UserAgentService, 'isAndroid').and.returnValue(true);
+
+        MapController.showHomeScreenPopup();
+
+        expect(UserAgentService.isAndroid).not.toHaveBeenCalled();
+        expect(MapController.homeScreenPopup).toBe(false);
+
+        // if user visits from Android device
+        ENV.maintenance = false;
 
         MapController.showHomeScreenPopup();
 
