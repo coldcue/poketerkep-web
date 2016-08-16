@@ -96,7 +96,9 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, G
 
         // only second time we show a popup, if user closes it we won't show it anymore
         if(savedState) {
-            if(UserAgentService.isAndroid(savedState)) {
+            if(ENV.maintenance) {
+                return;
+            } else if(UserAgentService.isAndroid(savedState)) {
                 vm.homeScreenPopup = 'Android';
                 return;
             } else if(UserAgentService.isMobileSafari(savedState)) {
