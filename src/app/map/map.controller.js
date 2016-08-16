@@ -77,6 +77,7 @@ function MapController(ENV, GAME_ITEM_TYPES, GameDataService, MapDTO, GameDTO, G
     function setMapData() {
         var gameData = GameDTO.getGame();
 
+        console.log(vm.pokemons);
         vm.gyms = gameData.gyms;
         vm.pokemons = gameData.pokemons;
         vm.pokestops = gameData.pokestops;

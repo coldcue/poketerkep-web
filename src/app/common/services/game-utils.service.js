@@ -56,24 +56,22 @@ function GameUtilsService(ENV, GAME_ITEM_TYPES, GAME_TEAM_TYPES, POKEMONS) {
      * @param rawData - Raw pokemons data what came from API
      */
     function convertPokemonsData(rawData) {
-        var pokemons = [];
+        var pokemons = {};
 
         angular.forEach(rawData, function(data) {
             var pokemon = {
                 type: GAME_ITEM_TYPES.pokemon,
                 id: data['encounter_id'],
-                coords: {
-                    latitude: data['latitude'],
-                    longitude: data['longitude']
-                },
+                lat: data['latitude'],
+                lng: data['longitude'],
                 icon: {
-                    url: ENV.imagePaths.pokemons + data['pokemon_id'] + '.png',
-                    scaledSize: { width: 25, height: 25 }
+                    iconUrl: ENV.imagePaths.pokemons + data['pokemon_id'] + '.png',
+                    iconSize: [25, 25]
                 },
                 data: data
             };
 
-            pokemons.push(pokemon);
+            angular.extend(pokemons, pokemon);
         });
 
         return pokemons;

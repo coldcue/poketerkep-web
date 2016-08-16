@@ -1,49 +1,11 @@
 <div class="map">
     <!-- Full google map -->
-    <ui-gmap-google-map class="full-map"
-                        center="vm.map.center"
-                        zoom="vm.map.zoom"
-                        events="vm.map.mapEvents"
-                        options="vm.map.mapOptions"
-                        pan="true">
-        <!-- Player position marker -->
-        <ui-gmap-markers models="vm.playerPosition"
-                         coords="'coords'"
-                         idkey="'id'"
-                         icon="'icon'"></ui-gmap-markers>
-        <!-- Gym position markers -->
-        <ui-gmap-markers models="vm.gyms"
-                         coords="'coords'"
-                         idkey="'id'"
-                         icon="'icon'"
-                         events="vm.map.markerEvents"></ui-gmap-markers>
-        <!-- Pokemon position markers -->
-        <ui-gmap-markers models="vm.pokemons"
-                         coords="'coords'"
-                         idkey="'id'"
-                         icon="'icon'"
-                         events="vm.map.markerEvents"></ui-gmap-markers>
-        <!-- Pokestops position markers -->
-        <ui-gmap-markers models="vm.pokestops"
-                         coords="'coords'"
-                         idkey="'id'"
-                         icon="'icon'"
-                         events="vm.map.markerEvents"></ui-gmap-markers>
-        <!-- Info window -->
-        <ui-gmap-window show="vm.map.window.show && vm.map.window.model"
-                        coords="vm.map.window.model.coords"
-                        closeClick="vm.map.window.closeClick()"
-                        templateUrl="'views/map-info-window.tpl.html'"
-                        templateParameter="{
-                            model: vm.map.window.model,
-                            GAME_ITEM_TYPES: vm.GAME_ITEM_TYPES,
-                            GameUtilsService: vm.GameUtilsService,
-                            playerPosition: vm.playerPosition[0].coords
-                        }"></ui-gmap-window>
-        <ui-gmap-map-control template="views/map-tracker-control.tpl.html"
-                             controller="MapTrackerControlController"
-                             position="bottom-right"></ui-gmap-map-control>
-    </ui-gmap-google-map>
+    <div class="angular-leaflet-map-container">
+        <leaflet lf-center="vm.map.center"
+                 defaults="vm.map.defaults"
+                 tiles="vm.map.tiles"
+        markers="vm.pokemons"></leaflet>
+    </div>
 
     <!-- HomeScreen popups -->
     <div class="homescreen-popup-backdrop" ng-show="vm.homeScreenPopup" ng-click="vm.hideHomeScreenPopup()"></div>

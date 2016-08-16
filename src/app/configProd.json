@@ -4,6 +4,10 @@
     "url": "https://www.poketerkep.hu",
     "production": true,
     "apiEndpoint": "https://api.poketerkep.hu/",
+    "mapbox": {
+      "apiKey": "pk.eyJ1IjoiaHVtcGVkbGkiLCJhIjoiY2lydnhwamhxMDBpY2h6bTF5ZDNraHY5aSJ9.gRpg48VVOwEL6T7fF3ueng",
+      "mapId": "mapbox.streets"
+    },
     "google": {
       "analyticsId": "UA-81473943-1",
       "apiKey": "AIzaSyA9meJtxjg3y8rXRu6Omsas8VQEiz5BMG8"

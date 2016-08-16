@@ -4,6 +4,10 @@
     "url": "https://test.poketerkep.hu",
     "production": false,
     "apiEndpoint": "https://testapi.poketerkep.hu/",
+    "mapbox": {
+      "apiKey": "pk.eyJ1IjoiaHVtcGVkbGkiLCJhIjoiY2lydnhwamhxMDBpY2h6bTF5ZDNraHY5aSJ9.gRpg48VVOwEL6T7fF3ueng",
+      "mapId": "humpedli/cirvz7f94001tguni6wdd6o8p"
+    },
     "google": {
       "analyticsId": "UA-81473943-1",
       "apiKey": "AIzaSyA9meJtxjg3y8rXRu6Omsas8VQEiz5BMG8"

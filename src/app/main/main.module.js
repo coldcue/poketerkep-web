@@ -14,5 +14,6 @@ angular
         'mgcrea.ngStrap', // angular-strap - http://mgcrea.github.io/angular-strap
         'LocalStorageModule', // angular-local-storage - https://github.com/grevory/angular-local-storage
         'angular-google-analytics', // angular-google-analytics - https://github.com/revolunet/angular-google-analytics
-        'facebook' // angular-facebook - https://github.com/Ciul/angular-facebook
+        'facebook', // angular-facebook - https://github.com/Ciul/angular-facebook
+        'leaflet-directive' // angular-leaflet-directive - https://github.com/tombatossals/angular-leaflet-directive
     ]);
