@@ -129,7 +129,7 @@ describe('Unit: Map - controller', function () {
         MapController.showHomeScreenPopup();
 
         expect(UserAgentService.isAndroid).toHaveBeenCalled();
-        expect(MapController.homeScreenPopup).toBe('Android');
+        expect(MapController.homeScreenPopup).toEqual('Android');
 
         // if user visits from iOS device
         UserAgentService.isAndroid.and.returnValue(false);
@@ -138,7 +138,14 @@ describe('Unit: Map - controller', function () {
         MapController.showHomeScreenPopup();
 
         expect(UserAgentService.isMobileSafari).toHaveBeenCalled();
-        expect(MapController.homeScreenPopup).toBe('iOS');
+        expect(MapController.homeScreenPopup).toEqual('iOS');
+
+        // if user visits from desktop
+        UserAgentService.isMobileSafari.and.returnValue(false);
+
+        MapController.showHomeScreenPopup();
+
+        expect(MapController.homeScreenPopup).toBe(false);
 
         // if user already closed home screen popup
         StorageService.get.and.returnValue(false);

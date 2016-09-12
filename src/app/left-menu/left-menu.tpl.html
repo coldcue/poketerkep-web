@@ -71,6 +71,24 @@
                      data-adapt-container-width="false"
                      data-hide-cover="false"
                      data-show-facepile="false"></div>
+                <div class="donate">
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                        <input type="hidden" name="cmd" value="_donations">
+                        <input type="hidden" name="business" value="paypal@poketerkep.hu">
+                        <input type="hidden" name="lc" value="HU">
+                        <input type="hidden" name="item_name" value="PokeTerkep.hu">
+                        <input type="hidden" name="no_note" value="0">
+                        <input type="hidden" name="currency_code" value="HUF">
+                        <input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest">
+                        <input type="image"
+                               src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"
+                               name="submit"
+                               alt="PayPal - The safer, easier way to pay online!">
+                        <img alt="PayPal pixel image"
+                             src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif"
+                             width="1" height="1">
+                    </form>
+                </div>
                 <p>Verzió:</p>
                 <p>{{ENV.build}}</p>
             </div>
